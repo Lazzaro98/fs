@@ -2,6 +2,11 @@ fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
 }
 
+fn substr(str: String, pos: usize, len: i32) -> String {
+    let ss: String = str.chars().skip(pos).take(len as usize).collect();
+    return ss;
+}
+
 fn process_decoded_string(src: String, operation: i32) -> String {
     // operation = 0 -> decode, operation = 1 -> remove
     let mut ret: String = "".to_string();
@@ -36,8 +41,21 @@ fn url_remove(src: String) -> String {
     return process_decoded_string(src, 1);
 }
 
+fn tokenize_string_by_ngram(src: String, ngram: i32) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut i = 0;
+    let mut _len = src.chars().count();
+    while i + ngram <= _len as i32 {
+        tokens.push(substr(src.to_string(), i as usize, ngram));
+        i = i + 1;
+    }
+    return tokens;
+}
+
 fn main() {
     let request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
     let url_decoded_request: String = url_remove(request);
-    println!("Decoded URL: {}", url_decoded_request);
+    // println!("Decoded URL: {}", url_decoded_request);
+    let mut str: String = "test".to_string();
+    println!("{:?}", tokenize_string_by_ngram(str, 2));
 }
