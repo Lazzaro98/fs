@@ -52,10 +52,100 @@ fn tokenize_string_by_ngram(src: String, ngram: i32) -> Vec<String> {
     return tokens;
 }
 
+fn extract_trigrams(src: String) -> Vec<String> {
+    return tokenize_string_by_ngram(src, 3);
+}
+
+fn extract_bigrams(src: String) -> Vec<String> {
+    return tokenize_string_by_ngram(src, 2);
+}
+
+fn extract_unigrams(src: String) -> Vec<String> {
+    return tokenize_string_by_ngram(src, 1);
+}
+
+fn levenshtein(s1: &str, s2: &str) -> usize {
+    if s1 == s2 {
+        return 0;
+    }
+
+    if s1.chars().count() == 0 {
+        return s2.chars().count();
+    }
+
+    if s2.chars().count() == 0 {
+        return s1.chars().count();
+    }
+
+    let mut array: Vec<usize> = (1..).take(s1.chars().count()).collect();
+    let mut dist_s1;
+    let mut dist_s2;
+    let mut ret = 0;
+    for (index_s2, char_s2) in s2.chars().enumerate() {
+        ret = index_s2;
+        dist_s1 = index_s2;
+
+        for (index_s1, char_s1) in s1.chars().enumerate() {
+            if char_s1 == char_s2 {
+                dist_s2 = dist_s1;
+            } else {
+                dist_s2 = dist_s1 + 1;
+            }
+
+            dist_s1 = array[index_s1];
+
+            if dist_s1 > ret {
+                if dist_s2 > ret {
+                    ret = ret + 1;
+                } else {
+                    ret = dist_s2;
+                }
+            } else if dist_s2 > dist_s1 {
+                ret = dist_s1 + 1;
+            } else {
+                ret = dist_s2;
+            }
+
+            array[index_s1] = ret;
+        }
+    }
+    return ret;
+}
+
+fn dice_coefficient(s1: &str, s2: &str) -> f64 {
+    let s1_length = s1.chars().count();
+    let s2_length = s2.chars().count();
+
+    if s1_length == 0 || s2_length == 0 {
+        return 0.0;
+    }
+
+    if s1.eq(s2) {
+        return 1.0;
+    }
+
+    let mut matches = 0;
+    let mut i = 0;
+    let mut j = 0;
+
+    while i < s1_length && j < s2_length {
+        let a: String = substr(s1.to_string(), i, 2);
+        let b: String = substr(s2.to_string(), j, 2);
+        let b_slice: &str = &b;
+        if a.eq(b_slice) {
+            matches = matches + 2;
+        }
+        i = i + 1;
+        j = j + 1;
+    }
+
+    return (matches as f64) / (s1_length + s2_length) as f64;
+}
+
 fn main() {
-    let request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
-    let url_decoded_request: String = url_remove(request);
+    let mut request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
+    //let url_decoded_request: String = url_remove(request);
     // println!("Decoded URL: {}", url_decoded_request);
     let mut str: String = "test".to_string();
-    println!("{:?}", tokenize_string_by_ngram(str, 2));
+    println!("{:?}", dice_coefficient("testing", "pesping"));
 }
