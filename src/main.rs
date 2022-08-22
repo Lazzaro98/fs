@@ -7,8 +7,8 @@ fn substr(str: String, pos: usize, len: i32) -> String {
     return ss;
 }
 
+// operation = 0 -> decode, operation = 1 -> remove
 fn process_decoded_string(src: String, operation: i32) -> String {
-    // operation = 0 -> decode, operation = 1 -> remove
     let mut ret: String = "".to_string();
     let mut i = 0;
     while i < src.chars().count() {
@@ -142,10 +142,77 @@ fn dice_coefficient(s1: &str, s2: &str) -> f64 {
     return (matches as f64) / (s1_length + s2_length) as f64;
 }
 
+fn levenshtein_distance(s1: &str, s2: &str) -> usize {
+    let s1_length = s1.chars().count();
+    let s2_length = s2.chars().count();
+
+    if s1_length == 0 || s2_length == 0 {
+        return 0;
+    }
+
+    if s1.eq(s2) {
+        return 0;
+    }
+    let mut array: Vec<usize> = (1..).take(s1_length).collect();
+    let mut dist_s1;
+    let mut dist_s2;
+    let mut ret = 0;
+    for (index_s2, char_s2) in s2.chars().enumerate() {
+        ret = index_s2;
+        dist_s1 = index_s2;
+
+        for (index_s1, char_s1) in s1.chars().enumerate() {
+            if char_s1 == char_s2 {
+                dist_s2 = dist_s1;
+            } else {
+                dist_s2 = dist_s1 + 1;
+            }
+
+            dist_s1 = array[index_s1];
+
+            if dist_s1 > ret {
+                if dist_s2 > ret {
+                    ret = ret + 1;
+                } else {
+                    ret = dist_s2;
+                }
+            } else if dist_s2 > dist_s1 {
+                ret = dist_s1 + 1;
+            } else {
+                ret = dist_s2;
+            }
+
+            array[index_s1] = ret;
+        }
+    }
+    return ret;
+}
+
+
 fn main() {
     let mut request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
     //let url_decoded_request: String = url_remove(request);
     // println!("Decoded URL: {}", url_decoded_request);
-    let mut str: String = "test".to_string();
-    println!("{:?}", dice_coefficient("testing", "pesping"));
+
+    let mut URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
+
+    let mut str: String = "test_string_123".to_string();
+    let mut str2: String = "pest_spring_321".to_string();
+
+
+    //tests
+    println!("\n\n\n");
+
+    println!("Test primer URL-a: {}\n", URL);
+    //println!("Dekodovan URL: {}\n", url_decode(URL));
+    //println!("URL sa uklonjenim URL-dekode karakterima: {}\n\n", url_remove(URL));
+    
+    //println!("Bigrami: {:?}", extract_unigrams(URL));
+    println!("Bigrami: {:?}", extract_bigrams(URL));
+    //println!("Bigrami: {:?}", extract_trigrams(URL));
+  
+    println!("\n\n\n");
+    println!("Test primer: {} i {}\n", str, str2);
+    println!("Dice koeficijent slicnosti je: {:?}", dice_coefficient(&str, &str2));
+    println!("Levenshtein koeficijent slicnosti je: {:?}", levenshtein_distance(&str, &str2));
 }
