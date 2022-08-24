@@ -1,3 +1,6 @@
+use std::fs::File;
+use std::io::Read;
+
 fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
 }
@@ -62,6 +65,69 @@ fn extract_bigrams(src: String) -> Vec<String> {
 
 fn extract_unigrams(src: String) -> Vec<String> {
     return tokenize_string_by_ngram(src, 1);
+}
+
+
+//split function
+fn tokenize_string_by_special_character(src: String, delimiter: char) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut i = 0;
+    let mut _len = src.chars().count();
+    let mut curr_token = "".to_string();
+    while i < _len {
+
+        if get_char(src.to_string(), i) == delimiter {
+            tokens.push(curr_token);
+            curr_token = "".to_string();
+        } else {
+            curr_token = curr_token + &get_char(src.to_string(), i).to_string();
+        }
+        i = i + 1;
+    }
+    if curr_token != "" {
+        tokens.push(curr_token);
+    }   
+    return tokens;
+}
+
+//function to replace string in string
+fn replace_string_in_string(src: String, search: String, replace: String) -> String {
+    let mut ret = "".to_string();
+    let mut i = 0;
+    while i < src.chars().count() {
+        if substr(src.to_string(), i, search.chars().count() as i32) == search {
+            ret = ret + &replace;
+            i = i + search.chars().count();
+        } else {
+            ret = ret + &get_char(src.to_string(), i).to_string();
+            i = i + 1;
+        }
+    }
+    return ret;
+}
+
+//tokenize string by string
+fn tokenize_string_by_string(src: String, delimiter: String) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut i = 0;
+    let mut _len = src.chars().count();
+    let mut curr_token = "".to_string();
+    while i < _len {
+
+        if substr(src.to_string(), i, delimiter.chars().count() as i32) == delimiter {
+            tokens.push(curr_token);
+            curr_token = "".to_string();
+            i = i + delimiter.chars().count();
+        } else {
+            curr_token = curr_token + &get_char(src.to_string(), i).to_string();
+            i = i + 1;
+        }
+     
+    }
+    if curr_token != "" {
+        tokens.push(curr_token);
+    }   
+    return tokens;
 }
 
 fn levenshtein(s1: &str, s2: &str) -> usize {
@@ -188,6 +254,31 @@ fn levenshtein_distance(s1: &str, s2: &str) -> usize {
     return ret;
 }
 
+//function to read file
+fn read_file(file_name: String) -> String {
+    let mut file = File::open(file_name).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    return contents;
+}
+
+//function to read file line by line and return a vector of strings
+fn read_file_line_by_line(file_name: String) -> Vec<String> {
+    let mut file = File::open(file_name).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    return contents.lines().map(|s| s.to_string()).collect();
+}
+
+//function to merge two Stirng vectors
+fn merge_vectors(mut v1: Vec<String>, mut v2: Vec<String>) -> Vec<String> {
+    let mut v3 = Vec::new();
+    v3.append(&mut v1);
+    v3.append(&mut v2);
+    return v3;
+}
+
+
 
 fn main() {
     let mut request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
@@ -201,18 +292,24 @@ fn main() {
 
 
     //tests
-    println!("\n\n\n");
+    //println!("\n\n\n");
 
-    println!("Test primer URL-a: {}\n", URL);
+    //println!("Test primer URL-a: {}\n", URL);
     //println!("Dekodovan URL: {}\n", url_decode(URL));
     //println!("URL sa uklonjenim URL-dekode karakterima: {}\n\n", url_remove(URL));
     
     //println!("Bigrami: {:?}", extract_unigrams(URL));
-    println!("Bigrami: {:?}", extract_bigrams(URL));
+    //println!("Bigrami: {:?}", extract_bigrams(URL));
     //println!("Bigrami: {:?}", extract_trigrams(URL));
   
-    println!("\n\n\n");
+    /*println!("\n\n\n");
     println!("Test primer: {} i {}\n", str, str2);
     println!("Dice koeficijent slicnosti je: {:?}", dice_coefficient(&str, &str2));
-    println!("Levenshtein koeficijent slicnosti je: {:?}", levenshtein_distance(&str, &str2));
+    println!("Levenshtein koeficijent slicnosti je: {:?}", levenshtein_distance(&str, &str2));*/
+
+    
+    //println!("{:?}", read_file_line_by_line("test_file.txt".to_string()));
+
+    //println!("{:?}", tokenize_string_by_special_character("test1_test2_test3_".to_string(), '_'));
+    println!("{:?}", tokenize_string_by_string("______".to_string(), "__".to_string()));
 }
