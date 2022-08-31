@@ -1,5 +1,7 @@
 use std::fs::File;
 use std::io::Read;
+use std::io::Write;
+use std::path::Path;
 
 fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
@@ -8,6 +10,15 @@ fn get_char(string: String, i: usize) -> char {
 fn substr(str: String, pos: usize, len: i32) -> String {
     let ss: String = str.chars().skip(pos).take(len as usize).collect();
     return ss;
+}
+
+fn isSubstring(str:&mut String, sub:String) -> bool {
+    for i in 0..str.len() {
+        if substr(str.to_string(), i, sub.len() as i32) == sub {
+            return true;
+        }
+    }
+    return false;
 }
 
 // operation = 0 -> decode, operation = 1 -> remove
@@ -67,29 +78,6 @@ fn extract_unigrams(src: String) -> Vec<String> {
     return tokenize_string_by_ngram(src, 1);
 }
 
-
-//split function
-fn tokenize_string_by_special_character(src: String, delimiter: char) -> Vec<String> {
-    let mut tokens = Vec::new();
-    let mut i = 0;
-    let mut _len = src.chars().count();
-    let mut curr_token = "".to_string();
-    while i < _len {
-
-        if get_char(src.to_string(), i) == delimiter {
-            tokens.push(curr_token);
-            curr_token = "".to_string();
-        } else {
-            curr_token = curr_token + &get_char(src.to_string(), i).to_string();
-        }
-        i = i + 1;
-    }
-    if curr_token != "" {
-        tokens.push(curr_token);
-    }   
-    return tokens;
-}
-
 //function to replace string in string
 fn replace_string_in_string(src: String, search: String, replace: String) -> String {
     let mut ret = "".to_string();
@@ -113,7 +101,6 @@ fn tokenize_string_by_string(src: String, delimiter: String) -> Vec<String> {
     let mut _len = src.chars().count();
     let mut curr_token = "".to_string();
     while i < _len {
-
         if substr(src.to_string(), i, delimiter.chars().count() as i32) == delimiter {
             tokens.push(curr_token);
             curr_token = "".to_string();
@@ -123,6 +110,44 @@ fn tokenize_string_by_string(src: String, delimiter: String) -> Vec<String> {
             i = i + 1;
         }
      
+    }
+    if curr_token != "" {
+        tokens.push(curr_token);
+    }   
+    return tokens;
+}
+
+//function to check if there is a substring of array in string
+fn check_if_substring_in_array(src:&mut String, array: &mut Vec<String>) -> i32 {
+    for i in 0..array.len() {
+        if isSubstring(src, array[i].to_string()) {
+            return i as i32;
+        }
+    }
+    return -1;
+}
+
+//function to split string by multiple delimiters
+fn split_string_by_multiple_delimiters(src:&mut String, delimiters:&mut Vec<String>) -> Vec<String> {
+    let mut tokens = Vec::new();
+    let mut i = 0;
+    let mut _len = src.chars().count();
+    let mut curr_token = "".to_string();
+    while i < _len {
+        let mut found = false;
+        for j in 0..delimiters.len() {
+            if substr(src.to_string(), i, delimiters[j].chars().count() as i32) == delimiters[j] {
+                tokens.push(curr_token);
+                curr_token = "".to_string();
+                found = true;
+                i = i + delimiters[j].chars().count();
+                break;
+            }
+        }
+        if !found {
+            curr_token = curr_token + &get_char(src.to_string(), i).to_string();
+            i = i + 1;
+        }
     }
     if curr_token != "" {
         tokens.push(curr_token);
@@ -208,52 +233,6 @@ fn dice_coefficient(s1: &str, s2: &str) -> f64 {
     return (matches as f64) / (s1_length + s2_length) as f64;
 }
 
-fn levenshtein_distance(s1: &str, s2: &str) -> usize {
-    let s1_length = s1.chars().count();
-    let s2_length = s2.chars().count();
-
-    if s1_length == 0 || s2_length == 0 {
-        return 0;
-    }
-
-    if s1.eq(s2) {
-        return 0;
-    }
-    let mut array: Vec<usize> = (1..).take(s1_length).collect();
-    let mut dist_s1;
-    let mut dist_s2;
-    let mut ret = 0;
-    for (index_s2, char_s2) in s2.chars().enumerate() {
-        ret = index_s2;
-        dist_s1 = index_s2;
-
-        for (index_s1, char_s1) in s1.chars().enumerate() {
-            if char_s1 == char_s2 {
-                dist_s2 = dist_s1;
-            } else {
-                dist_s2 = dist_s1 + 1;
-            }
-
-            dist_s1 = array[index_s1];
-
-            if dist_s1 > ret {
-                if dist_s2 > ret {
-                    ret = ret + 1;
-                } else {
-                    ret = dist_s2;
-                }
-            } else if dist_s2 > dist_s1 {
-                ret = dist_s1 + 1;
-            } else {
-                ret = dist_s2;
-            }
-
-            array[index_s1] = ret;
-        }
-    }
-    return ret;
-}
-
 //function to read file
 fn read_file(file_name: String) -> String {
     let mut file = File::open(file_name).unwrap();
@@ -264,31 +243,99 @@ fn read_file(file_name: String) -> String {
 
 //function to read file line by line and return a vector of strings
 fn read_file_line_by_line(file_name: String) -> Vec<String> {
+    
     let mut file = File::open(file_name).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
     return contents.lines().map(|s| s.to_string()).collect();
 }
 
-//function to merge two Stirng vectors
-fn merge_vectors(mut v1: Vec<String>, mut v2: Vec<String>) -> Vec<String> {
-    let mut v3 = Vec::new();
-    v3.append(&mut v1);
-    v3.append(&mut v2);
-    return v3;
+fn load_files_into_vector(v:&mut Vec<String>, args: &[&str]) {
+    for filename in args {
+        v.append(&mut read_file_line_by_line(filename.to_string()));
+    }
+}
+
+fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
+    let mut total_levenstein = 0;
+    remove_request_type_from_log(word); // we exclude GET, POST, etc.
+    let mut split_logs_to_check: Vec<String> = split_string_by_multiple_delimiters(word, separating_strings);
+        
+    for j in 0..split_logs_to_check.len() {
+            let mut min_levenstein = 100;
+            let mut p = 0;
+            for k in 0..dictionary.len() {
+                let levenstein = levenshtein(&split_logs_to_check[j], &dictionary[k]);
+                if levenstein < min_levenstein {
+                    min_levenstein = levenstein;
+                    p = k;
+                }
+            }
+            println!("{} -> dict[{}]:{} = {}", split_logs_to_check[j], p, dictionary[p], min_levenstein);
+            total_levenstein = total_levenstein + min_levenstein;
+    }
+    println!("\nTotal levenstein: {}\n\n", total_levenstein);
 }
 
 
+fn analyse_logs(logs_to_check:&mut Vec<String>, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
+    for i in 0..logs_to_check.len() {
+        analyse_log(&mut logs_to_check[i], separating_strings, dictionary); 
+        if i == 30 {
+            break;
+        }
+       // println!("\nTotal levenstein distance for log: {} is: {}\n\n\n", logs_to_check[i], total_levenstein);
+    }
+}
+
+fn extract_dictionaries_from_logs(dictionary1:&mut Vec<String>, separating_strings: &mut Vec<String>) ->Vec<String>{
+    let mut dictionary:Vec<String> = Vec::new();
+    for i in 0..dictionary1.len() {
+        let mut temp: Vec<String> = split_string_by_multiple_delimiters(&mut dictionary1[i], separating_strings);
+        for j in 0..temp.len() {
+            //add temp[j] to dictionary only if it doesn't exist already
+            if !dictionary.contains(&temp[j]) {
+                dictionary.push(temp[j].to_string());
+            }
+        }
+      
+    }
+    return dictionary;
+}
+
+fn remove_request_type_from_log(log:&mut String) {
+    let mut temp: Vec<String> = log.split(" ").map(|s| s.to_string()).collect();
+    temp.remove(0);
+    *log = temp.join(" ");
+}
+
+//function to export vector of strings to a file
+fn export_vector_to_file(v: &Vec<String>, file_name: String) {
+    let mut file = File::create(file_name).unwrap();
+    for i in 0..v.len() {
+        file.write_all(v[i].as_bytes()).unwrap();
+        file.write_all("\n".as_bytes()).unwrap();
+    }
+}
+
+//function to check if file exists
+fn file_exists(file_name: String) -> bool {
+    let path = Path::new(&file_name);
+    return path.exists();
+}
 
 fn main() {
-    let mut request:String = "GET /api/аrеu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
-    //let url_decoded_request: String = url_remove(request);
+
+    //initiate boolean type var
+    let mut update_dictionary = false;
+    let request:String = "/api/areu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
+    // let url_decoded_request: String = url_remove(request);
     // println!("Decoded URL: {}", url_decoded_request);
 
-    let mut URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
+    let URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
 
-    let mut str: String = "test_string_123".to_string();
-    let mut str2: String = "pest_spring_321".to_string();
+    let str: String = "test_string_123".to_string();
+    let str2: String = "pest_spring_321".to_string();
 
 
     //tests
@@ -311,5 +358,33 @@ fn main() {
     //println!("{:?}", read_file_line_by_line("test_file.txt".to_string()));
 
     //println!("{:?}", tokenize_string_by_special_character("test1_test2_test3_".to_string(), '_'));
-    println!("{:?}", tokenize_string_by_string("______".to_string(), "__".to_string()));
+    //println!("{:?}", tokenize_string_by_string("______".to_string(), "__".to_string()));
+    
+    //initialize vector of strings
+    let mut dictionary1: Vec<String> = Vec::new();
+    let mut separating_strings: Vec<String> = Vec::new();
+    let mut logs_to_check: Vec<String> = Vec::new();
+    load_files_into_vector(&mut dictionary1, &["dictionary1.txt", "dictionary2.txt"]);
+    load_files_into_vector(&mut separating_strings, &["special_strings.txt"]);
+    load_files_into_vector(&mut logs_to_check, &["log_to_check.txt"]);
+
+    let mut dictionary:Vec<String> = Vec::new();
+    if update_dictionary || !file_exists("dictionary.txt".to_string()) {
+        dictionary = extract_dictionaries_from_logs(&mut dictionary1, &mut separating_strings);
+        export_vector_to_file(&dictionary, "dictionary.txt".to_string());
+    }
+    else {
+        load_files_into_vector(&mut dictionary, &["dictionary.txt"]);
+    }
+
+    analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
+
 }
+    
+    //println!("{}", levenshtein(&"test".to_string(), &"".to_string()));
+    //println!("{:?}", split_logs_to_check);
+    //println!("\n{:?}\n\n", dictionary);
+    //println!("{:?}\n\n", separating_strings);
+    //println!("{:?}", logs_to_check);
+
+
