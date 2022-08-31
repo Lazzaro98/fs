@@ -2,6 +2,9 @@ use std::fs::File;
 use std::io::Read;
 use std::io::Write;
 use std::path::Path;
+use std::fs;
+use std::collections::hash_map::DefaultHasher;
+use std::hash::{Hash, Hasher};
 
 fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
@@ -250,7 +253,7 @@ fn read_file_line_by_line(file_name: String) -> Vec<String> {
     return contents.lines().map(|s| s.to_string()).collect();
 }
 
-fn load_files_into_vector(v:&mut Vec<String>, args: &[&str]) {
+fn load_files_into_vector(v:&mut Vec<String>, args: Vec<String>) {
     for filename in args {
         v.append(&mut read_file_line_by_line(filename.to_string()));
     }
@@ -291,10 +294,12 @@ fn analyse_logs(logs_to_check:&mut Vec<String>, separating_strings: &mut Vec<Str
 fn extract_dictionaries_from_logs(dictionary1:&mut Vec<String>, separating_strings: &mut Vec<String>) ->Vec<String>{
     let mut dictionary:Vec<String> = Vec::new();
     for i in 0..dictionary1.len() {
-        let mut temp: Vec<String> = split_string_by_multiple_delimiters(&mut dictionary1[i], separating_strings);
+        let mut log = dictionary1[i].to_string();
+        remove_request_type_from_log(&mut log); // we exclude GET, POST, etc.
+        let mut temp: Vec<String> = split_string_by_multiple_delimiters(&mut log, separating_strings);
         for j in 0..temp.len() {
             //add temp[j] to dictionary only if it doesn't exist already
-            if !dictionary.contains(&temp[j]) {
+            if !dictionary.contains(&temp[j]) && temp[j] != "" {
                 dictionary.push(temp[j].to_string());
             }
         }
@@ -324,21 +329,105 @@ fn file_exists(file_name: String) -> bool {
     return path.exists();
 }
 
+fn make_dictionary(dictionary1:&mut Vec<String>, separating_strings:&mut Vec<String>, update_dictionary:bool, file_name: String) -> Vec<String>{
+    let mut dictionary:Vec<String> = Vec::new();
+    if update_dictionary || !file_exists(file_name.to_string()) {
+        dictionary = extract_dictionaries_from_logs(dictionary1, separating_strings);
+        export_vector_to_file(&dictionary, file_name.to_string());
+    }
+    else {
+        load_files_into_vector(&mut dictionary, vec![file_name.to_string()]);
+    }
+    return dictionary;
+}
+
+fn get_filenames_that_start_with(filename_start:String) -> Vec<String> {
+    let mut malicious_logs_filenames: Vec<String> = Vec::new();
+    for entry in fs::read_dir(".").unwrap() {
+        let entry = entry.unwrap();
+        let path = entry.path();
+        let filename = path.file_name().unwrap().to_str().unwrap();
+        if filename.starts_with(&filename_start) {
+            malicious_logs_filenames.push(filename.to_string());
+        }
+    }
+    return malicious_logs_filenames;
+}
+
+fn calculate_hash2<T: Hash>(t: &T) -> u64 {
+    let mut s = DefaultHasher::new();
+    t.hash(&mut s);
+    s.finish()
+}
+
+//function to calculate hash of a file
+fn calculate_hash(file_name: String) -> String {
+    let mut val = calculate_hash2(&file_name);
+    let mut hash = String::new();
+    return val.to_string();  
+}
+
+// save string in a file in separate folder
+fn save_string_in_file(string_to_save: String, file_name: String) {
+    //handle error result of create_dir_all
+    let res = fs::create_dir_all("hashes");
+    let mut file = File::create("hashes/".to_owned() + &file_name).unwrap();
+    file.write_all(string_to_save.as_bytes()).unwrap();
+}
+
+//read string from a file in seperate folder
+fn read_string_from_file(file_name: String) -> String {
+    let mut file = File::open("hashes/".to_owned() +&file_name).unwrap();
+    let mut contents = String::new();
+    file.read_to_string(&mut contents).unwrap();
+    return contents;
+}
+
+fn check_if_dictionaries_updated(filename_begin:String) -> bool {
+    let mut malicious_logs_filenames = get_filenames_that_start_with(filename_begin);
+    let mut hashes: Vec<String> = Vec::new();
+    let mut hashes_from_file: Vec<String> = Vec::new();
+    for i in 0..malicious_logs_filenames.len() {
+        hashes.push(calculate_hash(malicious_logs_filenames[i].to_string()));
+    }
+    for i in 0..malicious_logs_filenames.len() {
+        if file_exists("/hashes/".to_owned() + &malicious_logs_filenames[i]) {
+            hashes_from_file.push(read_string_from_file(malicious_logs_filenames[i].to_string()));
+        }
+        else {
+            return true;
+        }
+    }
+    for i in 0..hashes.len() {
+        if hashes[i] != hashes_from_file[i] {
+            return true;
+        }
+    }
+    return false;
+}
+
+// caluclates hash of given files and save them
+fn calculate_and_save_hashes(filename_begin:String) {
+    let mut malicious_logs_filenames = get_filenames_that_start_with(filename_begin);
+    let mut hashes: Vec<String> = Vec::new();
+    for i in 0..malicious_logs_filenames.len() {
+        hashes.push(calculate_hash(malicious_logs_filenames[i].to_string()));
+    }
+    for i in 0..malicious_logs_filenames.len() {
+        save_string_in_file(hashes[i].to_string(), malicious_logs_filenames[i].to_string());
+    }
+}
+
+
 fn main() {
 
     //initiate boolean type var
-    let mut update_dictionary = false;
-    let request:String = "/api/areu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
+    
+    let mut request:String = "GET /api/areu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
     // let url_decoded_request: String = url_remove(request);
     // println!("Decoded URL: {}", url_decoded_request);
 
-    let URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
-
-    let str: String = "test_string_123".to_string();
-    let str2: String = "pest_spring_321".to_string();
-
-
-    //tests
+    //let URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
     //println!("\n\n\n");
 
     //println!("Test primer URL-a: {}\n", URL);
@@ -360,31 +449,28 @@ fn main() {
     //println!("{:?}", tokenize_string_by_special_character("test1_test2_test3_".to_string(), '_'));
     //println!("{:?}", tokenize_string_by_string("______".to_string(), "__".to_string()));
     
-    //initialize vector of strings
-    let mut dictionary1: Vec<String> = Vec::new();
+
+    let mut update_dictionary = true;
+    
+    let mut malicious_logs: Vec<String> = Vec::new();
     let mut separating_strings: Vec<String> = Vec::new();
     let mut logs_to_check: Vec<String> = Vec::new();
-    load_files_into_vector(&mut dictionary1, &["dictionary1.txt", "dictionary2.txt"]);
-    load_files_into_vector(&mut separating_strings, &["special_strings.txt"]);
-    load_files_into_vector(&mut logs_to_check, &["log_to_check.txt"]);
+    load_files_into_vector(&mut malicious_logs, get_filenames_that_start_with("malicious_logs".to_string()));
+    load_files_into_vector(&mut separating_strings, get_filenames_that_start_with("special_strings".to_string()));
+    load_files_into_vector(&mut logs_to_check, get_filenames_that_start_with("logs_to_check".to_string()));
 
-    let mut dictionary:Vec<String> = Vec::new();
-    if update_dictionary || !file_exists("dictionary.txt".to_string()) {
-        dictionary = extract_dictionaries_from_logs(&mut dictionary1, &mut separating_strings);
-        export_vector_to_file(&dictionary, "dictionary.txt".to_string());
-    }
-    else {
-        load_files_into_vector(&mut dictionary, &["dictionary.txt"]);
+    //get all filenames that start with "malicious_logs"
+   
+    update_dictionary = check_if_dictionaries_updated("malicious_logs".to_string());
+    let mut dictionary:Vec<String> = make_dictionary(&mut malicious_logs, &mut separating_strings, update_dictionary, "dictionary.txt".to_string());
+
+    if update_dictionary {
+        calculate_and_save_hashes("malicious_logs".to_string());
     }
 
     analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
-
-}
     
-    //println!("{}", levenshtein(&"test".to_string(), &"".to_string()));
-    //println!("{:?}", split_logs_to_check);
-    //println!("\n{:?}\n\n", dictionary);
-    //println!("{:?}\n\n", separating_strings);
-    //println!("{:?}", logs_to_check);
+    //save_string_in_file("test_file".to_string(), "test_file".to_string());
+}
 
 

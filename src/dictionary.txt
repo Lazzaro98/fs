@@ -1,5 +1,3 @@
-GET
-
 administrator
 components
 com_techfolio
@@ -17,7 +15,6 @@ wordpress
 intranet
 webalizer
 share
-POST
 cgi-bin
 newsup
 pl
@@ -235,7 +232,6 @@ moin_static170beta2
 classic
 screen
 CMS
-HEAD
 110
 242
 68
@@ -1126,7 +1122,6 @@ WebServiceImpl
 axis2-admin
 powerslave
 CFYZ
-TRACK
 QUALYS12680
 hpjdwm
 setinfo
@@ -1226,7 +1221,6 @@ FCKeditor
 %22%3E%3Cscript%3Ealert%28document
 dev
 admin_config
-BDMT
 browse
 FilePath
 Opt
@@ -1811,7 +1805,6 @@ sit
 Peel
 proxy
 games
-PUT
 test_put_qualysBr8s50bL
 showcat
 catid
@@ -2263,7 +2256,6 @@ commit
 pass
 VD_login
 VD_pass
-BADMETHOD
 QuAlYs
 opensourcepos-2
 bootstrap-responsive
@@ -2376,7 +2368,6 @@ dnewsweb
 whois_raw
 fqdn
 %0acat%0a
-OPTIONS
 WebDB
 moin_static190rc2
 framework
@@ -2449,7 +2440,6 @@ replacecurrent
 153
 DokuWiki
 tt_news_article__t
-TRACE
 ubb6_test
 [Submit]
 absolutepath
@@ -2937,7 +2927,6 @@ pforum
 edit_image
 dn
 snapshot
-PROPFIND
 htdocs
 face
 Forum
@@ -3166,7 +3155,6 @@ PAGE
 shared
 moin_static180beta1
 moin_static157
-QUALYS
 Dokeos
 export
 phptest
@@ -3375,6 +3363,7 @@ metinfo2
 WPnBr
 webfind
 keywords
+QUALYS
 manage
 phpnettoolpack-0
 inc_script
@@ -3426,7 +3415,6 @@ width
 233<
 height
 233<script>alert("QUALYSXSS")<
-rndmmtd
 6zifes70utwbb5jfdas
 tiki-5
 2-fresh
@@ -3460,6 +3448,7 @@ shopdbtest
 W3Mail-1
 intermediate_login
 psychoblogger
+HEAD
 hit
 pafiledb_31
 mambo4
@@ -3965,7 +3954,6 @@ csLiveSupport
 UserCreate
 mcart_php
 ManageSoftJQ
-SEARCH
 banner3
 V-CMS
 move
@@ -4369,7 +4357,6 @@ e107_mysql4
 pix
 SMILEYS
 snipsnap
-DEBUG
 happymall
 bulletin
 mypid
@@ -4525,7 +4512,6 @@ ustorekeeper
 goto
 sdbsearch_it
 nntp
-BADMTHD
 apis
 mini_square
 Do
@@ -4786,7 +4772,6 @@ db_sql
 php%253f
 cot
 html-edit
-ABCD
 jkstatus
 initJs
 jrun-web
@@ -5075,7 +5060,6 @@ com_contact
 demo400
 703
 get_user_group
-BDMTHD
 LO7C74uK
 117
 199
@@ -6079,9 +6063,6 @@ leftDao
 jQuery183016740860980352856_1604309800583
 fulltext
 wordpress-database-reset
-this
 an
 example2
-of
 text2
-hehe2
