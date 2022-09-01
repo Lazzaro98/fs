@@ -1,3 +1,5 @@
+
+
 use std::fs::File;
 use std::io::Read;
 use std::io::Write;
@@ -5,6 +7,12 @@ use std::path::Path;
 use std::fs;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
+use std::sync::mpsc;
+
+extern crate notify;
+use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
+// use std::sync::mpsc::channel;
+use std::time::Duration;
 
 fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
@@ -238,6 +246,7 @@ fn dice_coefficient(s1: &str, s2: &str) -> f64 {
 
 //function to read file
 fn read_file(file_name: String) -> String {
+    println!("Reading file {}...", file_name);
     let mut file = File::open(file_name).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
@@ -246,7 +255,7 @@ fn read_file(file_name: String) -> String {
 
 //function to read file line by line and return a vector of strings
 fn read_file_line_by_line(file_name: String) -> Vec<String> {
-    
+    println!("Reading file {}...", file_name);
     let mut file = File::open(file_name).unwrap();
     let mut contents = String::new();
     file.read_to_string(&mut contents).unwrap();
@@ -254,6 +263,7 @@ fn read_file_line_by_line(file_name: String) -> Vec<String> {
 }
 
 fn load_files_into_vector(v:&mut Vec<String>, args: Vec<String>) {
+    println!("Loading files {:?}", args);
     for filename in args {
         v.append(&mut read_file_line_by_line(filename.to_string()));
     }
@@ -261,6 +271,7 @@ fn load_files_into_vector(v:&mut Vec<String>, args: Vec<String>) {
 
 fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
     let mut total_levenstein = 0;
+    println!("Analysing log {}", word);
     remove_request_type_from_log(word); // we exclude GET, POST, etc.
     let mut split_logs_to_check: Vec<String> = split_string_by_multiple_delimiters(word, separating_strings);
         
@@ -274,10 +285,10 @@ fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionar
                     p = k;
                 }
             }
-            println!("{} -> dict[{}]:{} = {}", split_logs_to_check[j], p, dictionary[p], min_levenstein);
+            //println!("{} -> dict[{}]:{} = {}", split_logs_to_check[j], p, dictionary[p], min_levenstein);
             total_levenstein = total_levenstein + min_levenstein;
     }
-    println!("\nTotal levenstein: {}\n\n", total_levenstein);
+    println!("Total levenstein: {}\n\n", total_levenstein);
 }
 
 
@@ -292,6 +303,7 @@ fn analyse_logs(logs_to_check:&mut Vec<String>, separating_strings: &mut Vec<Str
 }
 
 fn extract_dictionaries_from_logs(dictionary1:&mut Vec<String>, separating_strings: &mut Vec<String>) ->Vec<String>{
+    println!("Extracting dictionaries from logs...");
     let mut dictionary:Vec<String> = Vec::new();
     for i in 0..dictionary1.len() {
         let mut log = dictionary1[i].to_string();
@@ -332,10 +344,12 @@ fn file_exists(file_name: String) -> bool {
 fn make_dictionary(dictionary1:&mut Vec<String>, separating_strings:&mut Vec<String>, update_dictionary:bool, file_name: String) -> Vec<String>{
     let mut dictionary:Vec<String> = Vec::new();
     if update_dictionary || !file_exists(file_name.to_string()) {
+        println!("Malicious files had been updated. Making dictionary...");
         dictionary = extract_dictionaries_from_logs(dictionary1, separating_strings);
         export_vector_to_file(&dictionary, file_name.to_string());
     }
     else {
+        println!("Loading existing dictionary...");
         load_files_into_vector(&mut dictionary, vec![file_name.to_string()]);
     }
     return dictionary;
@@ -362,7 +376,9 @@ fn calculate_hash2<T: Hash>(t: &T) -> u64 {
 
 //function to calculate hash of a file
 fn calculate_hash(file_name: String) -> String {
-    let mut val = calculate_hash2(&file_name);
+    //get content from a file
+    let content = read_file(file_name);
+    let mut val = calculate_hash2(&content);
     let mut hash = String::new();
     return val.to_string();  
 }
@@ -390,15 +406,19 @@ fn check_if_dictionaries_updated(filename_begin:String) -> bool {
     for i in 0..malicious_logs_filenames.len() {
         hashes.push(calculate_hash(malicious_logs_filenames[i].to_string()));
     }
+    
+
     for i in 0..malicious_logs_filenames.len() {
-        if file_exists("/hashes/".to_owned() + &malicious_logs_filenames[i]) {
+        if file_exists("hashes/".to_owned() + &malicious_logs_filenames[i]) {
             hashes_from_file.push(read_string_from_file(malicious_logs_filenames[i].to_string()));
         }
         else {
             return true;
         }
     }
+
     for i in 0..hashes.len() {
+        println!("{} comparing with {}", hashes[i], hashes_from_file[i]);
         if hashes[i] != hashes_from_file[i] {
             return true;
         }
@@ -418,6 +438,41 @@ fn calculate_and_save_hashes(filename_begin:String) {
     }
 }
 
+// thread that will be waiting for file changes
+fn thread_that_waits_for_file_changes(filename_begin:String) {
+    let (tx, rx) = mpsc::channel();
+    let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
+    watcher.watch(".", RecursiveMode::Recursive).unwrap();
+    loop {
+        match rx.recv() {
+            Ok(event) => {
+                match event {
+                    DebouncedEvent::Create(_) => {
+                        println!("File created");
+                    },
+                    DebouncedEvent::Write(smth) => {
+                        //track what exactly changed
+                        println!("File changed: {}", smth.as_path().display());
+                        //println!("File written {:?}", smth);
+                    },
+                    DebouncedEvent::Remove(_) => {
+                        println!("File removed");
+                    },
+                    DebouncedEvent::Rename(_, _) => {
+                        println!("File renamed");
+
+                    },
+                    DebouncedEvent::Chmod(_) => {
+                        println!("File chmod");
+
+                    },
+                    _ => {}
+                }
+            },
+            Err(e) => println!("watch error: {:?}", e),
+        }
+    }
+}
 
 fn main() {
 
@@ -461,7 +516,7 @@ fn main() {
 
     //get all filenames that start with "malicious_logs"
    
-    update_dictionary = check_if_dictionaries_updated("malicious_logs".to_string());
+    /*update_dictionary = check_if_dictionaries_updated("malicious_logs".to_string());
     let mut dictionary:Vec<String> = make_dictionary(&mut malicious_logs, &mut separating_strings, update_dictionary, "dictionary.txt".to_string());
 
     if update_dictionary {
@@ -469,7 +524,10 @@ fn main() {
     }
 
     analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
-    
+    */
+
+    thread_that_waits_for_file_changes("malicious_logs".to_string());
+
     //save_string_in_file("test_file".to_string(), "test_file".to_string());
 }
 

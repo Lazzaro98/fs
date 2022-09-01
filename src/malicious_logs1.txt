@@ -6016,3 +6016,5 @@ GET /merchant-sdk-php/
 GET /php_info/
 GET /cgi-bin/dmailweb.exe
 GET /cgi-bin/webadmin.ntf++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.nsf/OSTextFile_Body?ReadForm&c:\Lotus\Notes\notes.ini
+GET test
+GET test2
