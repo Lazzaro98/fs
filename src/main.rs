@@ -11,8 +11,9 @@ use std::sync::mpsc;
 
 extern crate notify;
 use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
-// use std::sync::mpsc::channel;
 use std::time::Duration;
+use std::io::BufReader;
+use std::io::BufRead;
 
 fn get_char(string: String, i: usize) -> char {
     return string.chars().nth(i).unwrap();
@@ -438,8 +439,10 @@ fn calculate_and_save_hashes(filename_begin:String) {
     }
 }
 
+
+
 // thread that will be waiting for file changes
-fn thread_that_waits_for_file_changes(filename_begin:String) {
+fn thread_that_waits_for_file_changes(filename_begin:String, logs_to_check:Vec<String> ,counter:usize) {
     let (tx, rx) = mpsc::channel();
     let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
     watcher.watch(".", RecursiveMode::Recursive).unwrap();
@@ -451,9 +454,7 @@ fn thread_that_waits_for_file_changes(filename_begin:String) {
                         println!("File created");
                     },
                     DebouncedEvent::Write(smth) => {
-                        //track what exactly changed
-                        println!("File changed: {}", smth.as_path().display());
-                        //println!("File written {:?}", smth);
+                        
                     },
                     DebouncedEvent::Remove(_) => {
                         println!("File removed");
@@ -472,6 +473,26 @@ fn thread_that_waits_for_file_changes(filename_begin:String) {
             Err(e) => println!("watch error: {:?}", e),
         }
     }
+}
+
+//function to read a file starting at specific line
+fn read_file_from_specific_line(file_name: String, line_number: usize) -> Vec<String> {
+    let file = File::open(file_name).unwrap();
+    let mut reader = BufReader::new(file);
+    let mut line = String::new();
+    let mut lines = Vec::new();
+    let mut counter = 0;
+    for i in 0..line_number {
+        reader.read_line(&mut line).unwrap();
+    }
+    line.clear();
+    //read until the end of the file
+    while reader.read_line(&mut line).unwrap() != 0 {
+        lines.push(line.clone());
+        line.clear();
+    }
+
+    return lines;
 }
 
 fn main() {
@@ -506,6 +527,8 @@ fn main() {
     
 
     let mut update_dictionary = true;
+    let mut count = 0;
+   
     
     let mut malicious_logs: Vec<String> = Vec::new();
     let mut separating_strings: Vec<String> = Vec::new();
@@ -514,6 +537,8 @@ fn main() {
     load_files_into_vector(&mut separating_strings, get_filenames_that_start_with("special_strings".to_string()));
     load_files_into_vector(&mut logs_to_check, get_filenames_that_start_with("logs_to_check".to_string()));
 
+    count = logs_to_check.len();
+    //println!("Count: {}", count);
     //get all filenames that start with "malicious_logs"
    
     /*update_dictionary = check_if_dictionaries_updated("malicious_logs".to_string());
@@ -526,9 +551,11 @@ fn main() {
     analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
     */
 
-    thread_that_waits_for_file_changes("malicious_logs".to_string());
+    //thread_that_waits_for_file_changes("malicious_logs".to_string(), logs_to_check, count);
 
     //save_string_in_file("test_file".to_string(), "test_file".to_string());
+    println!("{:?}", read_file_from_specific_line("malicious_logs2.txt".to_string(), 3));
+
 }
 
 
