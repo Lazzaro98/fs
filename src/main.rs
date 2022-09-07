@@ -8,6 +8,7 @@ use std::fs;
 use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::sync::mpsc;
+use std::collections::HashMap;
 
 extern crate notify;
 use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
@@ -270,9 +271,16 @@ fn load_files_into_vector(v:&mut Vec<String>, args: Vec<String>) {
     }
 }
 
+fn load_files_into_vector2(v:&mut Vec<String>, args: &mut Vec<String>) {
+    println!("Loading files {:?}", args);
+    for filename in args {
+        v.append(&mut read_file_line_by_line(filename.to_string()));
+    }
+}
+
 fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
     let mut total_levenstein = 0;
-    println!("Analysing log {}", word);
+    print!("Analysing log {}", word);
     remove_request_type_from_log(word); // we exclude GET, POST, etc.
     let mut split_logs_to_check: Vec<String> = split_string_by_multiple_delimiters(word, separating_strings);
         
@@ -295,6 +303,16 @@ fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionar
 
 fn analyse_logs(logs_to_check:&mut Vec<String>, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
     for i in 0..logs_to_check.len() {
+        analyse_log(&mut logs_to_check[i], separating_strings, dictionary); 
+        if i == 30 {
+            break;
+        }
+       // println!("\nTotal levenstein distance for log: {} is: {}\n\n\n", logs_to_check[i], total_levenstein);
+    }
+}
+
+fn analyse_logs2(logs_to_check:&mut Vec<String>,start_index:usize, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
+    for i in start_index..logs_to_check.len() {
         analyse_log(&mut logs_to_check[i], separating_strings, dictionary); 
         if i == 30 {
             break;
@@ -442,8 +460,9 @@ fn calculate_and_save_hashes(filename_begin:String) {
 
 
 // thread that will be waiting for file changes
-fn thread_that_waits_for_file_changes(filename_begin:String, logs_to_check:Vec<String> ,counter:usize) {
+fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malicious_log:&mut Vec<String>) {
     let (tx, rx) = mpsc::channel();
+    
     let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
     watcher.watch(".", RecursiveMode::Recursive).unwrap();
     loop {
@@ -454,18 +473,49 @@ fn thread_that_waits_for_file_changes(filename_begin:String, logs_to_check:Vec<S
                         println!("File created");
                     },
                     DebouncedEvent::Write(smth) => {
+                        //clear malicious_logs_filenames
+                       
+                        malicious_log.clear();
+                        let mut malicious_logs_filenames:Vec<String> = get_filenames_that_start_with(filename_begin.clone());
+
+                        //load malicious logs into malicious_log
+                        load_files_into_vector(malicious_log, malicious_logs_filenames);
+                        println!("Updated malicious logs");
                         
                     },
-                    DebouncedEvent::Remove(_) => {
-                        println!("File removed");
-                    },
-                    DebouncedEvent::Rename(_, _) => {
-                        println!("File renamed");
+                    _ => {}
+                }
+            },
+            Err(e) => println!("watch error: {:?}", e),
+        }
+    }
+}
 
+fn thread_that_waits_for_new_logs(filename:String, logs:&mut Vec<String>, separating_strings:&mut Vec<String>, dictionary:&mut Vec<String>) {
+    let (tx, rx) = mpsc::channel();
+    let mut length = logs.len();
+    let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
+    watcher.watch(".", RecursiveMode::Recursive).unwrap();
+    loop {
+        match rx.recv() {
+            Ok(event) => {
+                match event {
+                    DebouncedEvent::Create(_) => {
+                        println!("File created");
                     },
-                    DebouncedEvent::Chmod(_) => {
-                        println!("File chmod");
+                    DebouncedEvent::Write(smth) => {
+                        //length of logs before update
+                        let new_length = calculate_number_of_lines_in_file(filename.clone());
 
+                        if length != new_length {
+                            // read file from specific line length
+                            let mut new_logs:Vec<String> = read_file_from_specific_line(filename.clone(), length);
+                            logs.append(&mut new_logs);
+                            analyse_logs2(logs, length, separating_strings, dictionary);
+                            length = new_length;
+                        }
+                        
+                       
                     },
                     _ => {}
                 }
@@ -493,6 +543,20 @@ fn read_file_from_specific_line(file_name: String, line_number: usize) -> Vec<St
     }
 
     return lines;
+}
+
+//function that calculates number of lines in a file
+fn calculate_number_of_lines_in_file(file_name: String) -> usize {
+    let file = File::open(file_name).unwrap();
+    let mut reader = BufReader::new(file);
+    let mut line = String::new();
+    let mut counter = 0;
+    //read until the end of the file
+    while reader.read_line(&mut line).unwrap() != 0 {
+        counter += 1;
+        line.clear();
+    }
+    return counter;
 }
 
 fn main() {
@@ -530,14 +594,29 @@ fn main() {
     let mut count = 0;
    
     
+    let mut malicious_logs_filenames:Vec<String> = get_filenames_that_start_with("malicious_logs".to_string());
+    let mut malicious_counter: HashMap<String, usize> = HashMap::new();
+
     let mut malicious_logs: Vec<String> = Vec::new();
     let mut separating_strings: Vec<String> = Vec::new();
     let mut logs_to_check: Vec<String> = Vec::new();
-    load_files_into_vector(&mut malicious_logs, get_filenames_that_start_with("malicious_logs".to_string()));
+    load_files_into_vector2(&mut malicious_logs, &mut malicious_logs_filenames);
     load_files_into_vector(&mut separating_strings, get_filenames_that_start_with("special_strings".to_string()));
     load_files_into_vector(&mut logs_to_check, get_filenames_that_start_with("logs_to_check".to_string()));
 
-    count = logs_to_check.len();
+
+    //iterate through malicious_logs_filenames
+    
+
+    for i in 0..malicious_logs_filenames.len() {
+        println!("{}", i);
+        malicious_counter.insert(malicious_logs_filenames[i].clone(), calculate_number_of_lines_in_file(malicious_logs_filenames[i].clone()));
+    }     
+
+    println!("{:?}",malicious_counter);
+    //create map<string, int>
+    
+    thread_that_waits_for_new_logs("logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
     //println!("Count: {}", count);
     //get all filenames that start with "malicious_logs"
    
@@ -551,10 +630,10 @@ fn main() {
     analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
     */
 
-    //thread_that_waits_for_file_changes("malicious_logs".to_string(), logs_to_check, count);
-
+    //thread_that_waits_for_file_changes("malicious_logs".to_string(), &mut malicious_counter);
+    //thread_that_waits_for_malicious_log_changes("malicious_logs".to_string(), &mut malicious_logs);
     //save_string_in_file("test_file".to_string(), "test_file".to_string());
-    println!("{:?}", read_file_from_specific_line("malicious_logs2.txt".to_string(), 3));
+    //println!("{:?}", read_file_from_specific_line("malicious_logs2.txt".to_string(), 3));
 
 }
 
