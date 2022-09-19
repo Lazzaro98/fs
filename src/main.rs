@@ -9,6 +9,7 @@ use std::collections::hash_map::DefaultHasher;
 use std::hash::{Hash, Hasher};
 use std::sync::mpsc;
 use std::collections::HashMap;
+use std::env;
 
 extern crate notify;
 use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
@@ -559,41 +560,13 @@ fn calculate_number_of_lines_in_file(file_name: String) -> usize {
     return counter;
 }
 
+
+
 fn main() {
 
-    //initiate boolean type var
-    
-    let mut request:String = "GET /api/areu/v1/housenumber?muni=Chrysos&town=Chrysos&street=Quanderious%20Friederich&cyr=true&fields=house_number,town_name,muni_name,street_name".to_string();
-    // let url_decoded_request: String = url_remove(request);
-    // println!("Decoded URL: {}", url_decoded_request);
+    //read program parameters
+    let args: Vec<String> = env::args().collect();
 
-    //let URL: String = "http://www.mysite.com/a%20file%20with%20spaces.html".to_string();
-    //println!("\n\n\n");
-
-    //println!("Test primer URL-a: {}\n", URL);
-    //println!("Dekodovan URL: {}\n", url_decode(URL));
-    //println!("URL sa uklonjenim URL-dekode karakterima: {}\n\n", url_remove(URL));
-    
-    //println!("Bigrami: {:?}", extract_unigrams(URL));
-    //println!("Bigrami: {:?}", extract_bigrams(URL));
-    //println!("Bigrami: {:?}", extract_trigrams(URL));
-  
-    /*println!("\n\n\n");
-    println!("Test primer: {} i {}\n", str, str2);
-    println!("Dice koeficijent slicnosti je: {:?}", dice_coefficient(&str, &str2));
-    println!("Levenshtein koeficijent slicnosti je: {:?}", levenshtein_distance(&str, &str2));*/
-
-    
-    //println!("{:?}", read_file_line_by_line("test_file.txt".to_string()));
-
-    //println!("{:?}", tokenize_string_by_special_character("test1_test2_test3_".to_string(), '_'));
-    //println!("{:?}", tokenize_string_by_string("______".to_string(), "__".to_string()));
-    
-
-    let mut update_dictionary = true;
-    let mut count = 0;
-   
-    
     let mut malicious_logs_filenames:Vec<String> = get_filenames_that_start_with("malicious_logs".to_string());
     let mut malicious_counter: HashMap<String, usize> = HashMap::new();
 
@@ -603,37 +576,12 @@ fn main() {
     load_files_into_vector2(&mut malicious_logs, &mut malicious_logs_filenames);
     load_files_into_vector(&mut separating_strings, get_filenames_that_start_with("special_strings".to_string()));
     load_files_into_vector(&mut logs_to_check, get_filenames_that_start_with("logs_to_check".to_string()));
-
-
-    //iterate through malicious_logs_filenames
     
 
-    for i in 0..malicious_logs_filenames.len() {
-        println!("{}", i);
-        malicious_counter.insert(malicious_logs_filenames[i].clone(), calculate_number_of_lines_in_file(malicious_logs_filenames[i].clone()));
-    }     
-
-    println!("{:?}",malicious_counter);
-    //create map<string, int>
+   
     
     thread_that_waits_for_new_logs("logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
-    //println!("Count: {}", count);
-    //get all filenames that start with "malicious_logs"
-   
-    /*update_dictionary = check_if_dictionaries_updated("malicious_logs".to_string());
-    let mut dictionary:Vec<String> = make_dictionary(&mut malicious_logs, &mut separating_strings, update_dictionary, "dictionary.txt".to_string());
 
-    if update_dictionary {
-        calculate_and_save_hashes("malicious_logs".to_string());
-    }
-
-    analyse_logs(&mut logs_to_check, &mut separating_strings, &mut dictionary);
-    */
-
-    //thread_that_waits_for_file_changes("malicious_logs".to_string(), &mut malicious_counter);
-    //thread_that_waits_for_malicious_log_changes("malicious_logs".to_string(), &mut malicious_logs);
-    //save_string_in_file("test_file".to_string(), "test_file".to_string());
-    //println!("{:?}", read_file_from_specific_line("malicious_logs2.txt".to_string(), 3));
 
 }
 
