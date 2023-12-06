@@ -9,9 +9,9 @@ use std::env;
 fn main() {
 
     //read program parameters
-    let args: Vec<String> = env::args().collect();
+    let _args: Vec<String> = env::args().collect();
 
-    let malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with("malicious_logs".to_string());
+    let _malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with("malicious_logs".to_string());
     /*let mut malicious_counter: HashMap<String, usize> = HashMap::new();
 
     let mut malicious_logs: Vec<String> = Vec::new();

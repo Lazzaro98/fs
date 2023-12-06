@@ -21,7 +21,7 @@ pub fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malici
                     DebouncedEvent::Create(_) => {
                         println!("File created");
                     },
-                    DebouncedEvent::Write(smth) => {
+                    DebouncedEvent::Write(_smth) => {
                         //clear malicious_logs_filenames
                        
                         malicious_log.clear();
@@ -52,7 +52,7 @@ pub fn thread_that_waits_for_new_logs(filename:String, logs:&mut Vec<String>, se
                     DebouncedEvent::Create(_) => {
                         println!("File created");
                     },
-                    DebouncedEvent::Write(smth) => {
+                    DebouncedEvent::Write(_smth) => {
                         //length of logs before update
                         let new_length = file_ops::calculate_number_of_lines_in_file(filename.clone());
 

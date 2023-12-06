@@ -66,7 +66,7 @@ pub fn get_filenames_that_start_with(filename_start:String) -> Vec<String> {
 // save string in a file in separate folder
 pub fn save_string_in_file(string_to_save: String, file_name: String) {
     //handle error result of create_dir_all
-    let res = fs::create_dir_all("hashes");
+    let _res = fs::create_dir_all("hashes");
     let mut file = File::create("hashes/".to_owned() + &file_name).unwrap();
     file.write_all(string_to_save.as_bytes()).unwrap();
 }
@@ -85,8 +85,8 @@ pub fn read_file_from_specific_line(file_name: String, line_number: usize) -> Ve
     let mut reader = BufReader::new(file);
     let mut line = String::new();
     let mut lines = Vec::new();
-    let counter = 0;
-    for i in 0..line_number {
+    let _counter = 0;
+    for _i in 0..line_number {
         reader.read_line(&mut line).unwrap();
     }
     line.clear();
