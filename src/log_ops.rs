@@ -1,5 +1,6 @@
 
 
+use crate::string_utils;
 
 
 pub fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
