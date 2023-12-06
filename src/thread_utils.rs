@@ -16,9 +16,6 @@ use std::time::Duration;
 use std::io::BufReader;
 use std::io::BufRead;
 
-mod file_ops;
-mod log_ops;
-
 // thread that will be waiting for file changes
 pub fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malicious_log:&mut Vec<String>) {
     let (tx, rx) = mpsc::channel();

@@ -17,7 +17,6 @@ use std::time::Duration;
 use std::io::BufReader;
 use std::io::BufRead;
 
-mod file_ops;
 
 fn calculate_hash2<T: Hash>(t: &T) -> u64 {
     let mut s = DefaultHasher::new();

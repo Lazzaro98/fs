@@ -22,7 +22,6 @@ use std::fs::{self, File};
 use std::io::{self, BufRead, BufReader, Read, Write};
 use std::path::Path;
 
-mod 
 
 /// Reads the entire contents of a file into a String.
 pub fn read_file(file_name: &str) -> io::Result<String> {

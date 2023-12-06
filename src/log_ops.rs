@@ -16,7 +16,6 @@ use std::time::Duration;
 use std::io::BufReader;
 use std::io::BufRead;
 
-mod src\string_utils;
 
 pub fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
     let mut total_levenstein = 0;
@@ -28,7 +27,7 @@ pub fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dicti
             let mut min_levenstein = 100;
             let mut p = 0;
             for k in 0..dictionary.len() {
-                let levenstein = string_utils::levenshtein(&split_logs_to_check[j], &dictionary[k]);
+                let levenstein = levenshtein(&split_logs_to_check[j], &dictionary[k]);
                 if levenstein < min_levenstein {
                     min_levenstein = levenstein;
                     p = k;
