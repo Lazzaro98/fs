@@ -1,21 +1,9 @@
 
-use std::fs::File;
-use std::io::Read;
-use std::io::Write;
-use std::path::Path;
-use std::fs;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
 use std::sync::mpsc;
-use std::collections::HashMap;
-use std::env;
 
 extern crate notify;
 use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
 use std::time::Duration;
-use std::io::BufReader;
-use std::io::BufRead;
-
 
 use crate::file_ops;
 use crate::log_ops;
@@ -37,10 +25,10 @@ pub fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malici
                         //clear malicious_logs_filenames
                        
                         malicious_log.clear();
-                        let mut malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with(filename_begin.clone());
+                        let malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with(filename_begin.clone());
 
                         //load malicious logs into malicious_log
-                        file_ops::load_files_into_vector(malicious_log, malicious_logs_filenames);
+                        let _ = file_ops::load_files_into_vector(malicious_log, malicious_logs_filenames);
                         println!("Updated malicious logs");
                         
                     },

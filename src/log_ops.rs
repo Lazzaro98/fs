@@ -1,19 +1,17 @@
 
-
 use crate::string_utils;
-
 
 pub fn analyse_log(word:&mut String, separating_strings: &mut Vec<String>, dictionary: &mut Vec<String>) {
     let mut total_levenstein = 0;
     print!("Analysing log {}", word);
     remove_request_type_from_log(word); // we exclude GET, POST, etc.
-    let mut split_logs_to_check: Vec<String> = string_utils::split_string_by_multiple_delimiters(word, separating_strings);
+    let split_logs_to_check: Vec<String> = string_utils::split_string_by_multiple_delimiters(word, separating_strings);
         
     for j in 0..split_logs_to_check.len() {
             let mut min_levenstein = 100;
             let mut p = 0;
             for k in 0..dictionary.len() {
-                let levenstein = levenshtein(&split_logs_to_check[j], &dictionary[k]);
+                let levenstein = string_utils::levenshtein(&split_logs_to_check[j], &dictionary[k]);
                 if levenstein < min_levenstein {
                     min_levenstein = levenstein;
                     p = k;

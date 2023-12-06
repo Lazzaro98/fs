@@ -1,22 +1,17 @@
-use std::env;
 
 mod file_ops;
 mod thread_utils;
 mod log_ops;
+mod string_utils;
 
-extern crate notify;
-use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
-use std::time::Duration;
-use std::io::BufReader;
-use std::io::BufRead;
-use crate::file_ops::get_filenames_that_start_with;
+use std::env;
 
 fn main() {
 
     //read program parameters
     let args: Vec<String> = env::args().collect();
 
-    let mut malicious_logs_filenames:Vec<String> = get_filenames_that_start_with("malicious_logs".to_string());
+    let malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with("malicious_logs".to_string());
     /*let mut malicious_counter: HashMap<String, usize> = HashMap::new();
 
     let mut malicious_logs: Vec<String> = Vec::new();

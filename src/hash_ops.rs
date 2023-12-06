@@ -1,23 +1,4 @@
 
-use std::fs::File;
-use std::io::Read;
-use std::io::Write;
-use std::path::Path;
-use std::fs;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
-use std::sync::mpsc;
-use std::collections::HashMap;
-use std::env;
-
-
-extern crate notify;
-use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
-use std::time::Duration;
-use std::io::BufReader;
-use std::io::BufRead;
-
-
 fn calculate_hash2<T: Hash>(t: &T) -> u64 {
     let mut s = DefaultHasher::new();
     t.hash(&mut s);

@@ -85,7 +85,7 @@ pub fn read_file_from_specific_line(file_name: String, line_number: usize) -> Ve
     let mut reader = BufReader::new(file);
     let mut line = String::new();
     let mut lines = Vec::new();
-    let mut counter = 0;
+    let counter = 0;
     for i in 0..line_number {
         reader.read_line(&mut line).unwrap();
     }
