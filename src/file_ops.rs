@@ -1,27 +1,9 @@
 
-use std::fs::File;
-use std::io::Read;
-use std::io::Write;
-use std::path::Path;
-use std::fs;
-use std::collections::hash_map::DefaultHasher;
-use std::hash::{Hash, Hasher};
-use std::sync::mpsc;
-use std::collections::HashMap;
-use std::env;
 
-
-extern crate notify;
-use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
-use std::time::Duration;
-use std::io::BufReader;
-use std::io::BufRead;
 // file_ops.rs
-
 use std::fs::{self, File};
 use std::io::{self, BufRead, BufReader, Read, Write};
 use std::path::Path;
-
 
 /// Reads the entire contents of a file into a String.
 pub fn read_file(file_name: &str) -> io::Result<String> {
@@ -38,18 +20,20 @@ pub fn read_file_line_by_line(file_name: &str) -> io::Result<Vec<String>> {
     reader.lines().collect()
 }
 
-pub fn load_files_into_vector(v:&mut Vec<String>, args: Vec<String>) {
-    println!("Loading files {:?}", args);
+pub fn load_files_into_vector(v: &mut Vec<String>, args: Vec<String>) -> io::Result<()> {
     for filename in args {
-        v.append(&mut read_file_line_by_line(filename.to_string()));
+        let mut lines = read_file_line_by_line(&filename)?;
+        v.append(&mut lines);
     }
+    Ok(())
 }
 
-pub fn load_files_into_vector2(v:&mut Vec<String>, args: &mut Vec<String>) {
-    println!("Loading files {:?}", args);
+pub fn load_files_into_vector2(v: &mut Vec<String>, args: &Vec<String>) -> io::Result<()> {
     for filename in args {
-        v.append(&mut read_file_line_by_line(filename.to_string()));
+        let mut lines = read_file_line_by_line(filename)?;
+        v.append(&mut lines);
     }
+    Ok(())
 }
 
 /// Writes a vector of strings to a file, each string on a new line.

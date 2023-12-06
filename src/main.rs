@@ -18,6 +18,7 @@ use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
 use std::time::Duration;
 use std::io::BufReader;
 use std::io::BufRead;
+use crate::file_ops::get_filenames_that_start_with;
 
 fn main() {
 
