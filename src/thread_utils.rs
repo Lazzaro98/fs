@@ -1,36 +1,50 @@
-
 use std::sync::mpsc;
-
 extern crate notify;
 use notify::{RecommendedWatcher, Watcher, RecursiveMode, DebouncedEvent};
 use std::time::Duration;
-
 use crate::file_ops;
 use crate::log_ops;
 
-// thread that will be waiting for file changes
-pub fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malicious_log:&mut Vec<String>) {
+/// Finds the maximum length of strings in the dictionary.
+///
+/// # Parameters
+/// - `dictionary`: A reference to a vector of known patterns.
+///
+/// # Returns
+/// The maximum length of the strings in the dictionary.
+fn find_max_levenshtein_distance(dictionary: &Vec<String>) -> usize {
+    dictionary.iter().map(|s| s.len()).max().unwrap_or(0)
+}
+
+/// Creates a thread that waits for changes in malicious log files.
+///
+/// # Parameters
+/// - `filename_prefix`: A string representing the prefix of filenames to watch for changes.
+/// - `malicious_logs`: A mutable reference to a vector to store the malicious log entries.
+pub fn watch_for_malicious_log_changes(filename_prefix: String, malicious_logs: &mut Vec<String>)
+{
     let (tx, rx) = mpsc::channel();
-    
     let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
     watcher.watch(".", RecursiveMode::Recursive).unwrap();
-    loop {
-        match rx.recv() {
-            Ok(event) => {
-                match event {
-                    DebouncedEvent::Create(_) => {
+
+    loop
+    {
+        match rx.recv()
+        {
+            Ok(event) =>
+            {
+                match event
+                {
+                    DebouncedEvent::Create(_) =>
+                    {
                         println!("File created");
                     },
-                    DebouncedEvent::Write(_smth) => {
-                        //clear malicious_logs_filenames
-                       
-                        malicious_log.clear();
-                        let malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with(filename_begin.clone());
-
-                        //load malicious logs into malicious_log
-                        let _ = file_ops::load_files_into_vector(malicious_log, malicious_logs_filenames);
+                    DebouncedEvent::Write(_) =>
+                    {
+                        malicious_logs.clear();
+                        let malicious_log_files: Vec<String> = file_ops::get_filenames_with_prefix(filename_prefix.clone());
+                        let _ = file_ops::load_files_into_vector(malicious_logs, malicious_log_files);
                         println!("Updated malicious logs");
-                        
                     },
                     _ => {}
                 }
@@ -40,31 +54,48 @@ pub fn thread_that_waits_for_malicious_log_changes(filename_begin:String, malici
     }
 }
 
-pub fn thread_that_waits_for_new_logs(filename:String, logs:&mut Vec<String>, separating_strings:&mut Vec<String>, dictionary:&mut Vec<String>) {
+/// Creates a thread that waits for new log entries and processes them.
+///
+/// # Parameters
+/// - `filename`: A string representing the filename to watch for new log entries.
+/// - `logs`: A mutable reference to a vector to store the log entries.
+/// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting log entries.
+/// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
+pub fn watch_for_new_log_entries(filename: String, logs: &mut Vec<String>, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>)
+{
     let (tx, rx) = mpsc::channel();
-    let mut length = logs.len();
+    let mut current_length = logs.len();
     let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
     watcher.watch(".", RecursiveMode::Recursive).unwrap();
-    loop {
-        match rx.recv() {
-            Ok(event) => {
-                match event {
-                    DebouncedEvent::Create(_) => {
+    
+    // Find the maximum possible Levenshtein distance
+    let max_levenshtein_distance = find_max_levenshtein_distance(dictionary);
+
+    loop
+    {
+        match rx.recv()
+        {
+            Ok(event) =>
+            {
+                match event
+                {
+                    DebouncedEvent::Create(_) =>
+                    {
                         println!("File created");
                     },
-                    DebouncedEvent::Write(_smth) => {
-                        //length of logs before update
-                        let new_length = file_ops::calculate_number_of_lines_in_file(filename.clone());
+                    DebouncedEvent::Write(_) =>
+                    {
+                        let new_length = file_ops::calculate_number_of_lines(filename.clone());
 
-                        if length != new_length {
-                            // read file from specific line length
-                            let mut new_logs:Vec<String> = file_ops::read_file_from_specific_line(filename.clone(), length);
+                        if current_length != new_length
+                        {
+                            println!("Processing new log entries in: {:?}", filename);
+
+                            let mut new_logs: Vec<String> = file_ops::read_file_from_specific_line(filename.clone(), current_length);
                             logs.append(&mut new_logs);
-                            log_ops::analyse_logs2(logs, length, separating_strings, dictionary);
-                            length = new_length;
+                            log_ops::analyze_logs_from_index(logs, current_length, delimiters, dictionary, None, max_levenshtein_distance);
+                            current_length = new_length;
                         }
-                        
-                       
                     },
                     _ => {}
                 }

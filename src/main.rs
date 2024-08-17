@@ -14,22 +14,33 @@ fn main() {
     //read program parameters
     let _args: Vec<String> = env::args().collect();
 
-    let mut _malicious_logs_filenames:Vec<String> = file_ops::get_filenames_that_start_with("files/malicious_logs".to_string());
-    let mut malicious_counter: HashMap<String, usize> = HashMap::new();
-
     let mut malicious_logs: Vec<String> = Vec::new();
     let mut separating_strings: Vec<String> = Vec::new();
     let mut logs_to_check: Vec<String> = Vec::new();
-    file_ops::load_files_into_vector2(&mut malicious_logs, &mut _malicious_logs_filenames);
-    file_ops::load_files_into_vector(&mut separating_strings, file_ops::get_filenames_that_start_with("files/special_strings".to_string()));
-    file_ops::load_files_into_vector(&mut logs_to_check, file_ops::get_filenames_that_start_with("files/logs_to_check".to_string()));
+
+    // Loading malicious logs
+    let mut _malicious_logs_filenames:Vec<String> = file_ops::get_filenames_with_prefix("malicious_logs".to_string());
+    if let Err(e) = file_ops::load_files_into_vector_ref(&mut malicious_logs, &_malicious_logs_filenames)
+    {
+        eprintln!("Error loading malicious logs: {}", e);
+    }
     
+    // Loading seperating strings
+    let separating_strings_filenames = file_ops::get_filenames_with_prefix("special_strings".to_string());
+    if let Err(e) = file_ops::load_files_into_vector(&mut separating_strings, separating_strings_filenames)
+    {
+        eprintln!("Error loading separating strings: {}", e);
+    }
 
-   
-    
-    thread_utils::thread_that_waits_for_new_logs("files/logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
+    // Loading logs that need to be checked
+    let logs_to_check_filenames = file_ops::get_filenames_with_prefix("logs_to_check".to_string());
+    if let Err(e) = file_ops::load_files_into_vector(&mut logs_to_check, logs_to_check_filenames)
+    {
+        eprintln!("Error loading logs to check: {}", e);
+    }
 
-
+    // Starting a live thread, that will wait for new logs (changes in log files)
+    thread_utils::watch_for_new_log_entries("logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
 }
 
 

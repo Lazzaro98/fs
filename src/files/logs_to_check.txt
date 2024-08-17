@@ -16439,3 +16439,12 @@ GET /api/test64
 GET /api/test64
 GET /api/test52
 GET /api/test64
+GET /api/test677
+GET /api/test677421
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=515222 HTTP/1.1

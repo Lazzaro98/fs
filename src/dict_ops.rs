@@ -1,62 +1,135 @@
+/// File: dict_ops.rs
+///
+/// This file contains functions for processing log files to extract and manage dictionaries
+/// of unique strings. These dictionaries are used to detect and compare log entries,
+/// specifically for identifying malicious patterns. The file includes the following functions:
+///
+/// - `extract_unique_entries_from_logs`: Processes log entries to extract unique strings, excluding request types.
+/// - `generate_or_load_dictionary`: Generates a dictionary from log entries or loads an existing dictionary from a file.
+/// - `are_dictionaries_updated`: Compares the current hashes of log files with the stored hashes to determine if updates are needed.
+///
+/// Modules Required:
+/// - `log_ops`: Provides operations to modify log entries.
+/// - `string_utils`: Provides string manipulation utilities.
+/// - `file_ops`: Provides file handling utilities.
+/// - `hash_ops`: Provides hashing utilities.
+///
+/// Author: Lazar Marinkovic
+/// Date: July 7th, 2024
 
 mod log_ops;
 mod string_utils;
 mod file_ops;
+mod hash_ops;
 
-pub fn extract_dictionaries_from_logs(dictionary1:&mut Vec<String>, separating_strings: &mut Vec<String>) ->Vec<String>{
-    println!("Extracting dictionaries from logs...");
-    let mut dictionary:Vec<String> = Vec::new();
-    for i in 0..dictionary1.len() {
-        let mut log = dictionary1[i].to_string();
-        log_ops::remove_request_type_from_log(&mut log); // we exclude GET, POST, etc.
-        let mut temp: Vec<String> = string_utils::split_string_by_multiple_delimiters(&mut log, separating_strings);
-        for j in 0..temp.len() {
-            //add temp[j] to dictionary only if it doesn't exist already
-            if !dictionary.contains(&temp[j]) && temp[j] != "" {
-                dictionary.push(temp[j].to_string());
+/// Extract unique dictionary entries from log entries
+///
+/// # Summary
+/// Processes log entries to extract unique strings, excluding request types (e.g., GET, POST).
+///
+/// # Parameters
+/// - `log_entries`: A mutable reference to a vector of log entry strings.
+/// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting log entries.
+///
+/// # Returns
+/// A vector of unique strings extracted from log entries.
+pub fn extract_unique_entries_from_logs(log_entries: &mut Vec<String>, delimiters: &mut Vec<String>) -> Vec<String>
+{
+    println!("Extracting unique entries from logs...");
+    let mut unique_entries: Vec<String> = Vec::new();
+    
+    for entry in log_entries.iter_mut()
+    {
+        log_ops::remove_request_type_from_log(entry); // Exclude request types like GET, POST, etc.
+        let temp_entries = string_utils::split_string_by_multiple_delimiters(entry, delimiters);
+        
+        for temp_entry in temp_entries
+        {
+            if !unique_entries.contains(&temp_entry) && !temp_entry.is_empty()
+            {
+                unique_entries.push(temp_entry);
             }
         }
-      
     }
-    return dictionary;
+    
+    unique_entries
 }
 
-pub fn make_dictionary(dictionary1:&mut Vec<String>, separating_strings:&mut Vec<String>, update_dictionary:bool, file_name: String) -> Vec<String>{
-    let mut dictionary:Vec<String> = Vec::new();
-    if update_dictionary || !file_ops::file_exists(file_name.to_string()) {
-        println!("Malicious files had been updated. Making dictionary...");
-        dictionary = log_ops::extract_dictionaries_from_logs(dictionary1, separating_strings);
-        file_ops::export_vector_to_file(&dictionary, file_name.to_string());
+/// Generate or load a dictionary of log entries (ex make_dictionary)
+///
+/// # Summary
+/// Generates a dictionary from log entries or loads an existing dictionary from a file.
+/// Optionally updates the dictionary if specified or if the dictionary file doesn't exist.
+///
+/// # Parameters
+/// - `log_entries`: A mutable reference to a vector of log entry strings.
+/// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting log entries.
+/// - `update_dictionary`: A boolean flag to force update of the dictionary.
+/// - `file_name`: The name of the file to load or save the dictionary.
+///
+/// # Returns
+/// A vector representing the dictionary of log entries.
+pub fn generate_or_load_dictionary(log_entries: &mut Vec<String>, delimiters: &mut Vec<String>, update_dictionary: bool, file_name: String) -> Vec<String>
+{
+    let mut dictionary: Vec<String> = Vec::new();
+    
+    if update_dictionary || !file_ops::file_exists(&file_name)
+    {
+        println!("Updating malicious files dictionary...");
+        dictionary = extract_unique_entries_from_logs(log_entries, delimiters);
+        file_ops::export_vector_to_file(&dictionary, &file_name);
     }
-    else {
+    else
+    {
         println!("Loading existing dictionary...");
-        file_ops::load_files_into_vector(&mut dictionary, vec![file_name.to_string()]);
+        file_ops::load_files_into_vector(&mut dictionary, vec![file_name]);
     }
-    return dictionary;
+    
+    dictionary
 }
 
-pub fn check_if_dictionaries_updated(filename_begin:String) -> bool {
-    let mut malicious_logs_filenames = file_ops::get_filenames_that_start_with(filename_begin);
-    let mut hashes: Vec<String> = Vec::new();
-    let mut hashes_from_file: Vec<String> = Vec::new();
-    for i in 0..malicious_logs_filenames.len() {
-        hashes.push(hash_ops::calculate_hash(malicious_logs_filenames[i].to_string()));
+/// Check if the log dictionaries have been updated (ex check_if_dictionaries_updated)
+///
+/// # Summary
+/// Compares the current hashes of log files with the stored hashes to determine if updates are needed.
+///
+/// # Parameters
+/// - `filename_prefix`: A string representing the prefix of filenames to check.
+///
+/// # Returns
+/// A boolean indicating whether the dictionaries have been updated.
+pub fn are_dictionaries_updated(filename_prefix: String) -> bool
+{
+    let log_filenames = file_ops::get_filenames_with_prefix(filename_prefix);
+    let mut current_hashes: Vec<String> = Vec::new();
+    let mut stored_hashes: Vec<String> = Vec::new();
+    
+    for filename in &log_filenames
+    {
+        current_hashes.push(hash_ops::calculate_hash(filename.clone()));
     }
 
-    for i in 0..malicious_logs_filenames.len() {
-        if file_ops::file_exists("hashes/".to_owned() + &malicious_logs_filenames[i]) {
-            hashes_from_file.push(file_ops::read_string_from_file(malicious_logs_filenames[i].to_string()));
+    for filename in &log_filenames
+    {
+        let hash_file = format!("hashes/{}", filename);
+        if file_ops::file_exists(&hash_file)
+        {
+            stored_hashes.push(file_ops::read_string_from_file(hash_file));
         }
-        else {
+        else
+        {
             return true;
         }
     }
 
-    for i in 0..hashes.len() {
-        println!("{} comparing with {}", hashes[i], hashes_from_file[i]);
-        if hashes[i] != hashes_from_file[i] {
+    for (current_hash, stored_hash) in current_hashes.iter().zip(stored_hashes.iter())
+    {
+        println!("Comparing {} with {}", current_hash, stored_hash);
+        if current_hash != stored_hash
+        {
             return true;
         }
     }
-    return false;
+    
+    false
 }
