@@ -5,17 +5,6 @@ use std::time::Duration;
 use crate::file_ops;
 use crate::log_ops;
 
-/// Finds the maximum length of strings in the dictionary.
-///
-/// # Parameters
-/// - `dictionary`: A reference to a vector of known patterns.
-///
-/// # Returns
-/// The maximum length of the strings in the dictionary.
-fn find_max_levenshtein_distance(dictionary: &Vec<String>) -> usize {
-    dictionary.iter().map(|s| s.len()).max().unwrap_or(0)
-}
-
 /// Creates a thread that waits for changes in malicious log files.
 ///
 /// # Parameters
@@ -67,9 +56,6 @@ pub fn watch_for_new_log_entries(filename: String, logs: &mut Vec<String>, delim
     let mut current_length = logs.len();
     let mut watcher: RecommendedWatcher = Watcher::new(tx, Duration::from_secs(2)).unwrap();
     watcher.watch(".", RecursiveMode::Recursive).unwrap();
-    
-    // Find the maximum possible Levenshtein distance
-    let max_levenshtein_distance = find_max_levenshtein_distance(dictionary);
 
     loop
     {
@@ -93,7 +79,7 @@ pub fn watch_for_new_log_entries(filename: String, logs: &mut Vec<String>, delim
 
                             let mut new_logs: Vec<String> = file_ops::read_file_from_specific_line(filename.clone(), current_length);
                             logs.append(&mut new_logs);
-                            log_ops::analyze_logs_from_index(logs, current_length, delimiters, dictionary, None, max_levenshtein_distance);
+                            log_ops::analyze_logs_from_index(logs, current_length, delimiters, dictionary, None);
                             current_length = new_length;
                         }
                     },
