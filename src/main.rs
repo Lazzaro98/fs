@@ -46,9 +46,7 @@ fn main() {
         &mut logs_to_check,
         &mut separating_strings,
         &mut malicious_logs,
-        None, // Analyze all logs
-        max_levenshtein_distance,
-    ) {
+        None) {
         Ok(_) => println!("Malicious logs analysis complete and saved."),
         Err(e) => eprintln!("Error during malicious log analysis: {}", e),
     }

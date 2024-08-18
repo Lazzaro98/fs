@@ -61,25 +61,30 @@ pub fn determine_criticality(levenshtein_distance: usize, dice_coefficient: f64,
 /// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting the log entry.
 /// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
 /// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
-pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, max_levenshtein_distance: usize) -> String
+pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>) -> String
 {
     let mut total_levenshtein = 0;
     let mut total_dice_coefficient = 0.0;
     let mut num_entries = 0;
+    let mut max_levenshtein_distance = find_max_levenshtein_distance(dictionary);
 
     print!("Analyzing log {}\n", log_entry);
     remove_request_type_from_log(log_entry); // Exclude request types like GET, POST, etc.
     let split_log_entries: Vec<String> = string_utils::split_by_multiple_delimiters(log_entry, delimiters);
 
+
     for entry in split_log_entries.iter()
     {
         let mut min_levenshtein = usize::MAX;
         let mut max_dice_coefficient = 0.0;
+        
 
         for pattern in dictionary.iter()
         {
             let levenshtein_distance = string_utils::levenshtein(entry, pattern);
             let dice_coefficient = string_utils::dice_coefficient(entry, pattern);
+
+            println!("Levenshtein distance: {}", levenshtein_distance);
 
             if levenshtein_distance < min_levenshtein
             {
@@ -92,10 +97,13 @@ pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters:
             }
         }
 
+        println!("Minimum Levenshtein distance: {}", min_levenshtein);
         total_levenshtein += min_levenshtein;
         total_dice_coefficient += max_dice_coefficient;
         num_entries += 1;
     }
+
+    println!("Total Levenshtein distance: {}", total_levenshtein);
 
     // Average the scores
     if num_entries > 0 {
@@ -103,7 +111,8 @@ pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters:
         total_dice_coefficient /= num_entries as f64;
     }
 
-    println!("Total Levenshtein distance: {}", total_levenshtein);
+    println!("Number of entries: {}", num_entries);
+    println!("Average Levenshtein distance: {}", total_levenshtein);
     println!("Total Dice coefficient: {}", total_dice_coefficient);
 
     let criticality = determine_criticality(total_levenshtein, total_dice_coefficient, max_levenshtein_distance);
@@ -119,12 +128,12 @@ pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters:
 /// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
 /// - `limit`: An optional limit on the number of log entries to analyze.
 /// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
-pub fn analyze_logs(logs: &mut Vec<String>, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, limit: Option<usize>, max_levenshtein_distance: usize)
+pub fn analyze_logs(logs: &mut Vec<String>, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, limit: Option<usize>)
 {
     let max_entries = limit.unwrap_or(logs.len());
     for (index, log) in logs.iter_mut().enumerate().take(max_entries)
     {
-        analyze_log_and_determine_criticality(log, delimiters, dictionary, max_levenshtein_distance);
+        analyze_log_and_determine_criticality(log, delimiters, dictionary);
     }
 }
 
@@ -137,14 +146,14 @@ pub fn analyze_logs(logs: &mut Vec<String>, delimiters: &mut Vec<String>, dictio
 /// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
 /// - `limit`: An optional limit on the number of log entries to analyze.
 /// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
-pub fn analyze_logs_from_index(logs: &mut Vec<String>, start_index: usize, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, limit: Option<usize>, max_levenshtein_distance: usize)
+pub fn analyze_logs_from_index(logs: &mut Vec<String>, start_index: usize, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, limit: Option<usize>,)
 {
     let max_entries = limit.unwrap_or(logs.len() - start_index) + start_index;
     for index in start_index..max_entries
     {
         if index < logs.len()
         {
-            analyze_log_and_determine_criticality(&mut logs[index], delimiters, dictionary, max_levenshtein_distance);
+            analyze_log_and_determine_criticality(&mut logs[index], delimiters, dictionary);
         }
         else
         {
@@ -173,14 +182,13 @@ pub fn analyze_logs_and_collect_malicious(
     logs: &mut Vec<String>,
     delimiters: &mut Vec<String>,
     dictionary: &mut Vec<String>,
-    limit: Option<usize>,
-    max_levenshtein_distance: usize,
+    limit: Option<usize>
 ) -> Vec<String> {
     let mut malicious_logs = Vec::new();
     let max_entries = limit.unwrap_or(logs.len());
 
     for (index, log) in logs.iter_mut().enumerate().take(max_entries) {
-        if is_malicious(log, delimiters, dictionary, max_levenshtein_distance) {
+        if is_malicious(log, delimiters, dictionary) {
             malicious_logs.push(log.clone());
         }
     }
@@ -212,15 +220,13 @@ pub fn analyze_logs_and_save_malicious(
     logs: &mut Vec<String>,
     delimiters: &mut Vec<String>,
     dictionary: &mut Vec<String>,
-    limit: Option<usize>,
-    max_levenshtein_distance: usize,
+    limit: Option<usize>
 ) -> io::Result<()> {
     let malicious_logs = analyze_logs_and_collect_malicious(
         logs,
         delimiters,
         dictionary,
-        limit,
-        max_levenshtein_distance,
+        limit
     );
 
     if malicious_logs.is_empty() {
@@ -237,14 +243,13 @@ use rayon::prelude::*;
 pub fn analyze_logs_and_save_malicious_parallel(
     logs: &mut Vec<String>,
     delimiters: &mut Vec<String>,  // Keep as mutable reference
-    dictionary: &mut Vec<String>,  // Keep as mutable reference
-    max_levenshtein_distance: usize,
+    dictionary: &mut Vec<String>  // Keep as mutable reference
 ) -> io::Result<()> {
     let malicious_logs: Vec<String> = logs.par_iter_mut()
         .filter_map(|log| {
             let mut delimiters_clone = delimiters.clone(); // Clone for each log entry
             let mut dictionary_clone = dictionary.clone(); // Clone for each log entry
-            if is_malicious(log, &mut delimiters_clone, &mut dictionary_clone, max_levenshtein_distance) {
+            if is_malicious(log, &mut delimiters_clone, &mut dictionary_clone) {
                 Some(log.clone())
             } else {
                 None
@@ -296,15 +301,13 @@ fn save_logs_to_file(logs: &[String], filename: &str) -> io::Result<()> {
 pub fn is_malicious(
     log_entry: &mut String,
     delimiters: &mut Vec<String>,
-    dictionary: &mut Vec<String>,
-    max_levenshtein_distance: usize,
+    dictionary: &mut Vec<String>
 ) -> bool {
     // Analyze the log entry and determine its criticality
     let criticality = analyze_log_and_determine_criticality(
         log_entry,
         delimiters,
-        dictionary,
-        max_levenshtein_distance,
+        dictionary
     );
 
     // Check if the criticality is "High"
@@ -326,4 +329,15 @@ pub fn remove_request_type_from_log(log_entry: &mut String)
     let mut parts: Vec<String> = log_entry.split(" ").map(|s| s.to_string()).collect();
     parts.remove(0);
     *log_entry = parts.join(" ");
+}
+
+/// Finds the maximum length of strings in the dictionary.
+///
+/// # Parameters
+/// - `dictionary`: A reference to a vector of known patterns.
+///
+/// # Returns
+/// The maximum length of the strings in the dictionary.
+fn find_max_levenshtein_distance(dictionary: &Vec<String>) -> usize {
+    dictionary.iter().map(|s| s.len()).max().unwrap_or(0)
 }
