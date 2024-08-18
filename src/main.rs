@@ -25,7 +25,7 @@ fn main() {
         eprintln!("Error loading malicious logs: {}", e);
     }
     
-    // Loading seperating strings
+    // Loading separating strings
     let separating_strings_filenames = file_ops::get_filenames_with_prefix("special_strings".to_string());
     if let Err(e) = file_ops::load_files_into_vector(&mut separating_strings, separating_strings_filenames)
     {
@@ -39,8 +39,24 @@ fn main() {
         eprintln!("Error loading logs to check: {}", e);
     }
 
+    let max_levenshtein_distance = 3;
+
+    // Analyze the loaded logs and save malicious ones to `malicious_logs.txt`
+    match log_ops::analyze_logs_and_save_malicious(
+        &mut logs_to_check,
+        &mut separating_strings,
+        &mut malicious_logs,
+        None, // Analyze all logs
+        max_levenshtein_distance,
+    ) {
+        Ok(_) => println!("Malicious logs analysis complete and saved."),
+        Err(e) => eprintln!("Error during malicious log analysis: {}", e),
+    }
+
+
+    // this will be a video demo in my presentation:
     // Starting a live thread, that will wait for new logs (changes in log files)
-    thread_utils::watch_for_new_log_entries("logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
+    //thread_utils::watch_for_new_log_entries("logs_to_check.txt".to_string(), &mut logs_to_check, &mut separating_strings, &mut malicious_logs);
 }
 
 
