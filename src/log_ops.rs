@@ -40,6 +40,9 @@ pub fn determine_criticality(levenshtein_distance: usize, dice_coefficient: f64,
     // Calculate composite score
     let composite_score = alpha * normalized_levenshtein + beta * dice_coefficient;
 
+    println!("Request Criticality: {}\n\n", composite_score);
+
+
     // Determine criticality based on composite score
     if composite_score < 0.3 {
         "Low".to_string()
@@ -58,13 +61,13 @@ pub fn determine_criticality(levenshtein_distance: usize, dice_coefficient: f64,
 /// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting the log entry.
 /// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
 /// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
-pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, max_levenshtein_distance: usize)
+pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters: &mut Vec<String>, dictionary: &mut Vec<String>, max_levenshtein_distance: usize) -> String
 {
     let mut total_levenshtein = 0;
     let mut total_dice_coefficient = 0.0;
     let mut num_entries = 0;
 
-    print!("Analyzing log {}", log_entry);
+    print!("Analyzing log {}\n", log_entry);
     remove_request_type_from_log(log_entry); // Exclude request types like GET, POST, etc.
     let split_log_entries: Vec<String> = string_utils::split_by_multiple_delimiters(log_entry, delimiters);
 
@@ -105,6 +108,7 @@ pub fn analyze_log_and_determine_criticality(log_entry: &mut String, delimiters:
 
     let criticality = determine_criticality(total_levenshtein, total_dice_coefficient, max_levenshtein_distance);
     println!("Request Criticality: {}\n\n", criticality);
+    criticality
 }
 
 /// Analyzes multiple log entries from the beginning with an optional limit.
@@ -146,6 +150,170 @@ pub fn analyze_logs_from_index(logs: &mut Vec<String>, start_index: usize, delim
         {
             break;
         }
+    }
+}
+
+/// Analyzes multiple log entries and returns a list of malicious logs.
+///
+/// # Description
+/// This function iterates through a vector of log entries, analyzes each one using the `is_malicious`
+/// function, and collects all logs that are determined to be malicious into a list. The function returns
+/// this list of malicious logs at the end.
+///
+/// # Parameters
+/// - `logs`: A mutable reference to a vector of log entry strings to be analyzed.
+/// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting log entries.
+/// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
+/// - `limit`: An optional limit on the number of log entries to analyze.
+/// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
+///
+/// # Returns
+/// - A vector containing all malicious log entries.
+pub fn analyze_logs_and_collect_malicious(
+    logs: &mut Vec<String>,
+    delimiters: &mut Vec<String>,
+    dictionary: &mut Vec<String>,
+    limit: Option<usize>,
+    max_levenshtein_distance: usize,
+) -> Vec<String> {
+    let mut malicious_logs = Vec::new();
+    let max_entries = limit.unwrap_or(logs.len());
+
+    for (index, log) in logs.iter_mut().enumerate().take(max_entries) {
+        if is_malicious(log, delimiters, dictionary, max_levenshtein_distance) {
+            malicious_logs.push(log.clone());
+        }
+    }
+
+    malicious_logs
+}
+
+use std::fs::{self, OpenOptions};
+use std::io::{self, Write};
+use std::path::Path;
+
+/// Analyzes logs and saves malicious ones to the file named `malicious_logs.txt`.
+///
+/// # Description
+/// This function iterates through a vector of log entries, analyzes each one using the `is_malicious`
+/// function, and appends all malicious logs to a file named `malicious_logs.txt`. If the file does not exist,
+/// it will be created.
+///
+/// # Parameters
+/// - `logs`: A mutable reference to a vector of log entry strings to be analyzed.
+/// - `delimiters`: A mutable reference to a vector of delimiter strings used for splitting log entries.
+/// - `dictionary`: A mutable reference to a vector of known patterns to compare against.
+/// - `limit`: An optional limit on the number of log entries to analyze.
+/// - `max_levenshtein_distance`: The maximum possible Levenshtein distance.
+///
+/// # Returns
+/// - `io::Result<()>`: The result of the file operation.
+pub fn analyze_logs_and_save_malicious(
+    logs: &mut Vec<String>,
+    delimiters: &mut Vec<String>,
+    dictionary: &mut Vec<String>,
+    limit: Option<usize>,
+    max_levenshtein_distance: usize,
+) -> io::Result<()> {
+    let malicious_logs = analyze_logs_and_collect_malicious(
+        logs,
+        delimiters,
+        dictionary,
+        limit,
+        max_levenshtein_distance,
+    );
+
+    if malicious_logs.is_empty() {
+        println!("No malicious logs found.");
+        return Ok(());
+    }
+
+    // Save the malicious logs to the file
+    save_logs_to_file(&malicious_logs, "malicious_logs.txt")
+}
+
+use rayon::prelude::*;
+
+pub fn analyze_logs_and_save_malicious_parallel(
+    logs: &mut Vec<String>,
+    delimiters: &mut Vec<String>,  // Keep as mutable reference
+    dictionary: &mut Vec<String>,  // Keep as mutable reference
+    max_levenshtein_distance: usize,
+) -> io::Result<()> {
+    let malicious_logs: Vec<String> = logs.par_iter_mut()
+        .filter_map(|log| {
+            let mut delimiters_clone = delimiters.clone(); // Clone for each log entry
+            let mut dictionary_clone = dictionary.clone(); // Clone for each log entry
+            if is_malicious(log, &mut delimiters_clone, &mut dictionary_clone, max_levenshtein_distance) {
+                Some(log.clone())
+            } else {
+                None
+            }
+        })
+        .collect();
+
+    save_logs_to_file(&malicious_logs, "malicious_logs.txt")
+}
+
+/// Saves the provided logs to a file named `malicious_logs.txt`.
+///
+/// # Parameters
+/// - `logs`: A reference to a vector of log entries to be saved.
+/// - `filename`: The name of the file to save the logs to (in this case, `malicious_logs.txt`).
+///
+/// # Returns
+/// - `io::Result<()>`: The result of the file operation.
+fn save_logs_to_file(logs: &[String], filename: &str) -> io::Result<()> {
+    let file_path = Path::new(filename);
+    let mut file = OpenOptions::new()
+        .create(true)
+        .append(true)
+        .open(&file_path)?;
+
+    for log in logs {
+        writeln!(file, "{}", log)?;
+    }
+
+    println!("Malicious logs saved to {}", filename);
+    Ok(())
+}
+
+/// Determines if a log entry is malicious based on its criticality value.
+///
+/// # Description
+/// This function analyzes the log entry using the `analyze_log_and_determine_criticality` function,
+/// and then checks if the resulting criticality is "High," which defines whether the request
+/// is malicious or not.
+///
+/// # Parameters
+/// - log_entry: A mutable reference to the log entry string to be analyzed.
+/// - delimiters: A mutable reference to a vector of delimiter strings used for splitting the log entry.
+/// - dictionary: A mutable reference to a vector of known patterns to compare against.
+/// - max_levenshtein_distance: The maximum possible Levenshtein distance.
+///
+/// # Returns
+/// - `true` if the request is malicious (i.e., if the criticality is "High"), otherwise `false`.
+pub fn is_malicious(
+    log_entry: &mut String,
+    delimiters: &mut Vec<String>,
+    dictionary: &mut Vec<String>,
+    max_levenshtein_distance: usize,
+) -> bool {
+    // Analyze the log entry and determine its criticality
+    let criticality = analyze_log_and_determine_criticality(
+        log_entry,
+        delimiters,
+        dictionary,
+        max_levenshtein_distance,
+    );
+
+    // Check if the criticality is "High"
+    if criticality == "High" {
+        println!("The request is determined to be malicious.");
+        return true;
+    } else {
+        println!("The request is not malicious.");
+        return false;
     }
 }
 
